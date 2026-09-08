@@ -17,7 +17,6 @@ import {
 import Magnetic from '@/components/ui/Magnetic';
 // import ZigzagBackground from '@/components/ui/ZigzagBackground';
 import HeroSection from '@/components/sections/HeroSectionAI';
-import Footer from '@/components/layout/Footer';
 import { useSmoothScroll } from '@/components/providers/SmoothScrollProvider';
 
 import useInView from '@/lib/hooks/useInView';

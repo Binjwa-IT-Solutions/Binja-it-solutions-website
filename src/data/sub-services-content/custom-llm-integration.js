@@ -5,7 +5,7 @@ export const customLlmIntegrationContent = {
     breadcrumbs: [
       { name: "Home", url: "/" },
       { name: "Services", url: "#" },
-      { name: "Agentic AI Solutions", url: "/services/agentic-ai-solutions" },
+      { name: "Agentic AI Solutions", url: "/ai-solutions" },
       { name: "Custom LLM Integration", url: "/services/agentic-ai-solutions/custom-llm-integration" }
     ],
   },

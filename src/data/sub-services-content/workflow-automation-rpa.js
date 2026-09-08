@@ -5,7 +5,7 @@ export const workflowAutomationRpaContent = {
     breadcrumbs: [
       { name: "Home", url: "/" },
       { name: "Services", url: "#" },
-      { name: "Agentic AI Solutions", url: "/services/agentic-ai-solutions" },
+      { name: "Agentic AI Solutions", url: "/ai-solutions" },
       { name: "Workflow Automation", url: "/services/agentic-ai-solutions/workflow-automation-rpa" }
     ],
   },

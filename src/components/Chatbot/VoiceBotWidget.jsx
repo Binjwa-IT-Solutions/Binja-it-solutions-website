@@ -1,106 +1,227 @@
 "use client";
 
-/**
- * Voice launcher (purple). The spoken entry point to the same conversation the
- * text widget uses -- see AssistantChatProvider.
- *
- * Replies are only read aloud while this panel is open and unmuted, so a question
- * typed into the chat widget never starts talking at the visitor unexpectedly.
- */
-
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mic, X, Volume2, VolumeX, RotateCcw, Send, Loader2 } from "lucide-react";
+import {
+  Mic,
+  X,
+  MessageCircle,
+  Settings2,
+  Loader2,
+  Send,
+} from "lucide-react";
 
-import { renderBotMessage, toSpeakableText } from "@/lib/chat/botMessage";
-import { useAssistantContext } from "@/lib/chat/assistantChatContext";
-import { useSpeechInput, useSpeechOutput } from "@/lib/chat/useSpeech";
-import { useTranscriptScroll } from "@/lib/chat/useTranscriptScroll";
-
-const launcherIcon = "/chatbot.svg";
+const chat12 = "/chatbot.svg";
+const HTTP_API_URL = process.env.NEXT_PUBLIC_CHATBOT_API_URL || "/chatbot-proxy";
 
 export default function VoiceBotWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState("");
-  const [interim, setInterim] = useState("");
-  const [speakReplies, setSpeakReplies] = useState(true);
+  const [status, setStatus] = useState("idle"); // idle, listening, processing, speaking, error
+  const [messages, setMessages] = useState([]);
+  const [hint, setHint] = useState("Tap button to speak or type below");
+  const [inputText, setInputText] = useState("");
 
-  const { messages, isSending, send, reset, subscribeToReplies } = useAssistantContext();
-  const { containerRef, endRef, handleScroll } = useTranscriptScroll(
-    isOpen,
-    messages,
-    isSending,
-  );
-  const {
-    isSupported: canSpeak,
-    isSpeaking,
-    speak,
-    cancel: cancelSpeech,
-  } = useSpeechOutput();
+  const [isSpeechSupported, setIsSpeechSupported] = useState(true);
 
-  // Only listen for replies while the panel is open and unmuted.
+  const recognitionRef = useRef(null);
+  const messagesEndRef = useRef(null);
+  const hasOpenedRef = useRef(false);
+
   useEffect(() => {
-    if (!isOpen || !speakReplies) return undefined;
-    return subscribeToReplies((text) => speak(toSpeakableText(text)));
-  }, [isOpen, speakReplies, subscribeToReplies, speak]);
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, status]);
 
-  const submit = useCallback(
-    (text) => {
-      const value = (text ?? "").trim();
-      if (!value || isSending) return;
-      cancelSpeech();
-      setInput("");
-      setInterim("");
-      send(value);
-    },
-    [isSending, send, cancelSpeech],
-  );
+  useEffect(() => {
+    // Check for Speech API support
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setIsSpeechSupported(false);
+      setHint("Voice not supported. Please type.");
+    } else {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.lang = "en-US";
 
-  const mic = useSpeechInput({
-    onFinalTranscript: submit,
-    onInterimTranscript: setInterim,
-  });
+      recognition.onstart = () => {
+        setStatus("listening");
+        setHint("Listening...");
+      };
 
-  function closePanel() {
-    setIsOpen(false);
-    mic.stop();
-    cancelSpeech();
-    setInterim("");
-  }
+      recognition.onresult = (event) => {
+        let interimTranscript = "";
+        let finalTranscript = "";
 
-  function handleMicClick() {
-    if (mic.isListening) {
-      mic.stop();
-      return;
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          } else {
+            interimTranscript += event.results[i][0].transcript;
+          }
+        }
+
+        if (finalTranscript) {
+          sendMessage(finalTranscript);
+        } else if (interimTranscript) {
+          setHint(`Heard: "${interimTranscript}"`);
+        }
+      };
+
+      recognition.onerror = (event) => {
+        setStatus("error");
+        if (event.error === 'no-speech') {
+          setHint("No speech detected.");
+        } else if (event.error === 'network') {
+          setHint("⚠️ Voice not supported in this browser. Please type.");
+        } else if (event.error === 'not-allowed') {
+          setHint("⚠️ Microphone access denied.");
+        } else {
+          setHint(`⚠️ Audio error: ${event.error}`);
+        }
+        setTimeout(() => {
+          setStatus("idle");
+          setHint("Tap button to speak or type below");
+        }, 3000);
+      };
+
+      recognition.onend = () => {
+        if (status === "listening") {
+          setStatus("idle");
+          setHint("Tap button to speak or type below");
+        }
+      };
+
+      recognitionRef.current = recognition;
     }
-    cancelSpeech();
-    mic.start();
+  }, [status]);
+
+  useEffect(() => {
+    if (isOpen && !hasOpenedRef.current) {
+      hasOpenedRef.current = true;
+      setMessages([{ role: "ai", text: "Hello! How can I help you today?" }]);
+      speakText("Hello! How can I help you today?");
+    }
+    if (!isOpen) {
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+    }
+  }, [isOpen]);
+
+  function speakText(htmlText) {
+    if (!window.speechSynthesis) return;
+    
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+
+    // Remove HTML tags for clean speech
+    const cleanText = htmlText.replace(/<[^>]*>?/gm, '');
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = "en-US";
+    
+    // Detailed prioritization of the best available built-in voices across all browsers
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = 
+      voices.find(v => v.name.includes("Online (Natural)") && v.lang.startsWith("en")) || // Edge Cloud Voices
+      voices.find(v => v.name.includes("Aria") && v.name.includes("Natural")) ||          // Edge Natural
+      voices.find(v => v.name.includes("Google US English")) ||                           // Chrome US Premium
+      voices.find(v => v.name.includes("Google UK English Female")) ||                    // Chrome UK Premium
+      voices.find(v => v.name === "Samantha" || v.name === "Victoria") ||                 // Mac/Safari Premium
+      voices.find(v => v.name.includes("Google") && v.lang.startsWith("en")) ||
+      voices.find(v => v.name.includes("Natural") && v.lang.startsWith("en")) ||
+      voices.find(v => v.name.includes("Premium") && v.lang.startsWith("en")) ||
+      voices.find(v => v.lang === "en-US" && (v.name.includes("Female") || v.name.includes("Zira"))) ||
+      voices.find(v => v.lang === "en-US") ||
+      voices[0];
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
+    utterance.rate = 1.05; // Slightly faster sounds a bit more natural and less drawn-out
+    utterance.pitch = 1.02; // Closer to neutral so premium voices don't sound distorted
+
+    utterance.onstart = () => {
+      setStatus("speaking");
+      setHint("Speaking...");
+    };
+
+    utterance.onend = () => {
+      setStatus("idle");
+      setHint(isSpeechSupported ? "Tap button to speak or type below" : "Please type your message.");
+    };
+
+    utterance.onerror = () => {
+      setStatus("idle");
+      setHint(isSpeechSupported ? "Tap button to speak or type below" : "Please type your message.");
+    };
+
+    window.speechSynthesis.speak(utterance);
   }
 
-  function handleReset() {
-    mic.stop();
-    cancelSpeech();
-    setInput("");
-    setInterim("");
-    reset();
+  async function sendMessage(text) {
+    if (!text.trim()) return;
+
+    setMessages((prev) => [...prev, { role: "user", text }]);
+    setStatus("processing");
+    setHint("Processing...");
+
+    try {
+      const res = await fetch(`${HTTP_API_URL}/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Server returned ${res.status}`);
+      }
+
+      const data = await res.json();
+      setMessages((prev) => [...prev, { role: "ai", text: data.response }]);
+      speakText(data.response);
+    } catch (err) {
+      console.error("VoiceBot API Error:", err);
+      setMessages((prev) => [...prev, { role: "ai", text: "Sorry, I'm having trouble connecting right now." }]);
+      setStatus("error");
+      setHint("⚠️ Connection failed.");
+      setTimeout(() => {
+        setStatus("idle");
+        setHint(isSpeechSupported ? "Tap button to speak or type below" : "Please type your message.");
+      }, 3000);
+    }
   }
 
-  const status = mic.isListening
-    ? "Listening…"
-    : isSending
-      ? "Processing…"
-      : isSpeaking
-        ? "Speaking…"
-        : "Ready";
+  function handleTextInputSubmit(e) {
+    e.preventDefault();
+    sendMessage(inputText);
+    setInputText("");
+  }
 
-  const hint =
-    mic.error ||
-    (mic.isListening
-      ? "Listening — tap the mic to stop."
-      : mic.isSupported
-        ? "Tap the mic to speak, or type below."
-        : "Voice input isn't supported in this browser — please type.");
+  function startRecording() {
+    if (!isSpeechSupported || status === "processing" || status === "listening") return;
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    try {
+      recognitionRef.current?.start();
+    } catch (err) { }
+  }
+
+  function stopRecording() {
+    if (status !== "listening") return;
+    try {
+      recognitionRef.current?.stop();
+    } catch (err) { }
+  }
+
+  function clearHistory() {
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    setMessages([]);
+    hasOpenedRef.current = false;
+    if (isOpen) {
+      hasOpenedRef.current = true;
+      setMessages([{ role: "ai", text: "Hello! How can I help you today?" }]);
+      speakText("Hello! How can I help you today?");
+    }
+  }
 
   return (
     <div className="relative flex flex-col items-end z-50">
@@ -112,212 +233,132 @@ export default function VoiceBotWidget() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.6, y: 24 }}
             transition={{ type: "spring", stiffness: 320, damping: 28 }}
-            style={{
-              transformOrigin: "bottom right",
-              height: "500px",
-              backgroundColor: "var(--bg-card)",
-              borderColor: "var(--border)",
-            }}
+            style={{ transformOrigin: "bottom right", height: "500px", backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}
             className="mb-4 w-80 sm:w-[360px] rounded-2xl shadow-2xl flex flex-col overflow-hidden border"
-            aria-label="Voice assistant"
+            aria-label="Voice Assistant"
           >
-            {/* Header */}
             <div className="bg-[#6c63ff] px-4 py-3 flex items-center justify-between shrink-0">
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center ring-2 ring-white/30 shrink-0">
+              <div className="flex items-center gap-3">
+                <div
+                  className={`w-9 h-9 rounded-full bg-white/15 flex items-center justify-center ring-2 ring-white/30`}
+                >
                   <Mic size={18} className="text-white" />
                 </div>
-                <div className="min-w-0">
-                  <p className="text-white font-semibold text-sm leading-tight truncate">
+                <div>
+                  <p className="text-white font-semibold text-sm leading-tight">
                     Voice Assistant
                   </p>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span
-                      className={`w-2 h-2 rounded-full inline-block ${
-                        mic.isListening
-                          ? "bg-red-400 animate-pulse"
-                          : mic.error
-                            ? "bg-red-500"
-                            : "bg-orange-400"
-                      }`}
+                      className={`w-2 h-2 rounded-full inline-block ${status === "idle" || status === "listening" ? "bg-orange-400" : status === "error" ? "bg-red-500" : "bg-orange-400"}`}
                     />
-                    <span className="text-white/80 text-xs">{status}</span>
+                    <span className="text-white/80 text-xs capitalize">
+                      {status === "idle" ? "Ready" : status}
+                    </span>
                   </div>
                 </div>
               </div>
-
-              <div className="flex items-center gap-1 shrink-0">
-                {canSpeak && (
-                  <button
-                    onClick={() => {
-                      if (speakReplies) cancelSpeech();
-                      setSpeakReplies((on) => !on);
-                    }}
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                    aria-label={speakReplies ? "Mute spoken replies" : "Hear replies aloud"}
-                    title={speakReplies ? "Mute spoken replies" : "Hear replies aloud"}
-                    aria-pressed={speakReplies}
-                  >
-                    {speakReplies ? <Volume2 size={16} /> : <VolumeX size={16} />}
-                  </button>
-                )}
-                {messages.length > 0 && (
-                  <button
-                    onClick={handleReset}
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                    aria-label="Start a new conversation"
-                    title="Start a new conversation"
-                  >
-                    <RotateCcw size={15} />
-                  </button>
-                )}
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={closePanel}
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                  aria-label="Close voice assistant"
+                  onClick={clearHistory}
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                  title="Clear Conversation"
+                >
+                  <Settings2 size={16} />
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                  aria-label="Close chat"
                 >
                   <X size={18} />
                 </button>
               </div>
             </div>
 
-            {/* Messages */}
-            <div
-              ref={containerRef}
-              onScroll={handleScroll}
-              className="flex-1 min-h-0 overflow-y-auto p-4 space-y-3 chat-scroll"
-              style={{ backgroundColor: "var(--bg-primary)" }}
-              aria-live="polite"
-            >
-              {messages.length === 0 && (
-                <div
-                  className="flex justify-center items-center h-full text-sm text-center px-4"
-                  style={{ color: "var(--text-muted)" }}
-                >
-                  Tap the microphone and ask about our services — I&apos;ll answer out loud.
+            <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ backgroundColor: "var(--bg-primary)" }} data-lenis-prevent="true">
+              {messages.length === 0 && status === "idle" && (
+                <div className="flex justify-center items-center h-full text-neutral-400 text-sm text-center">
+                  Press and hold the microphone to start speaking, or type below.
                 </div>
               )}
-
               {messages.map((m, i) => (
                 <div
                   key={i}
                   className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  {m.role === "bot" && (
+                  {m.role === "ai" && (
                     <div className="w-6 h-6 rounded-full bg-[#6c63ff] flex items-center justify-center shrink-0 mr-2 mt-1">
                       <Mic size={12} className="text-white" />
                     </div>
                   )}
                   <div
-                    className={`max-w-[78%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap wrap-break-word ${
-                      m.role === "user"
+                    className={`max-w-[78%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${m.role === "user"
                         ? "bg-[#010032] text-white rounded-br-sm"
                         : "shadow-sm rounded-bl-sm border"
-                    }`}
-                    style={
-                      m.role === "user"
-                        ? {}
-                        : {
-                            backgroundColor: "var(--bg-card)",
-                            color: "var(--text-primary)",
-                            borderColor: "var(--border)",
-                          }
-                    }
+                      }`}
+                    style={m.role === "user" ? {} : { backgroundColor: "var(--bg-card)", color: "var(--text-primary)", borderColor: "var(--border)" }}
                   >
-                    {m.role === "bot" ? renderBotMessage(m.text) : m.text}
+                    {m.role === "user" ? m.text : <span dangerouslySetInnerHTML={{ __html: m.text }} />}
                   </div>
                 </div>
               ))}
 
-              {isSending && (
+              {status === "processing" && (
                 <div className="flex justify-start">
                   <div className="w-6 h-6 rounded-full bg-[#6c63ff] flex items-center justify-center shrink-0 mr-2 mt-1">
                     <Loader2 size={12} className="text-white animate-spin" />
                   </div>
-                  <div
-                    className="border shadow-sm px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1"
-                    style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}
-                  >
-                    <span
-                      className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "0ms" }}
-                    />
-                    <span
-                      className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "160ms" }}
-                    />
-                    <span
-                      className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "320ms" }}
-                    />
+                  <div className="border shadow-sm px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1" style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}>
+                    <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "160ms" }} />
+                    <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "320ms" }} />
                   </div>
                 </div>
               )}
-              <div ref={endRef} />
+              {status === "speaking" && (
+                <div className="flex justify-start">
+                  <div className="w-6 h-6 rounded-full bg-[#6c63ff] flex items-center justify-center shrink-0 mr-2 mt-1">
+                    <Mic size={12} className="text-white" />
+                  </div>
+                  <div className="border shadow-sm px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1.5" style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}>
+                    <motion.span animate={{ height: [4, 12, 4] }} transition={{ repeat: Infinity, duration: 0.6 }} className="w-1 bg-[#6c63ff] rounded-full" />
+                    <motion.span animate={{ height: [4, 16, 4] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-1 bg-[#6c63ff] rounded-full" />
+                    <motion.span animate={{ height: [4, 10, 4] }} transition={{ repeat: Infinity, duration: 0.5 }} className="w-1 bg-[#6c63ff] rounded-full" />
+                    <motion.span animate={{ height: [4, 14, 4] }} transition={{ repeat: Infinity, duration: 0.7 }} className="w-1 bg-[#6c63ff] rounded-full" />
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
 
-            {/* Composer: mic first, typing always available as a fallback */}
-            <div
-              className="border-t px-3 pt-2 pb-3 shrink-0"
-              style={{ backgroundColor: "var(--bg-primary)", borderColor: "var(--border)" }}
-            >
-              <p
-                className="text-[11px] mb-2 px-1 text-center"
-                style={{ color: mic.error ? "#f97316" : "var(--text-muted)" }}
-              >
+            <div className="border-t p-4 flex flex-col items-center gap-2 shrink-0" style={{ backgroundColor: "var(--bg-primary)", borderColor: "var(--border)" }}>
+              <p className="text-xs min-h-[16px] text-center" style={{ color: "var(--text-muted)" }}>
                 {hint}
               </p>
 
-              <div className="relative flex items-center justify-center mb-2">
-                {mic.isListening && (
+              <div className="relative flex items-center justify-center my-2 w-full gap-2">
+                {status === "listening" && (
                   <>
                     <span className="absolute w-16 h-16 rounded-full border-2 border-orange-400 opacity-0 animate-[ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite]" />
                     <span className="absolute w-20 h-20 rounded-full border-2 border-orange-400 opacity-0 animate-[ping_1.5s_cubic-bezier(0,0,0.2,1)_0.3s_infinite]" />
                   </>
                 )}
                 <button
-                  onClick={handleMicClick}
-                  disabled={isSending || !mic.isSupported}
-                  className={`relative z-10 w-14 h-14 shrink-0 rounded-full flex items-center justify-center transition-all duration-200 select-none disabled:cursor-not-allowed ${
-                    mic.isListening
-                      ? "bg-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.6)] scale-110"
-                      : isSending || !mic.isSupported
-                        ? "bg-amber-500 opacity-50"
+                  onClick={() => {
+                    if (status === "listening") stopRecording();
+                    else startRecording();
+                  }}
+                  disabled={status === "processing" || !isSpeechSupported}
+                  className={`relative z-10 w-14 h-14 shrink-0 rounded-full flex items-center justify-center transition-all duration-200 select-none ${status === "listening"
+                      ? "bg-orange-500 shadow-[0_0_20px_rgba(239,68,68,0.6)] scale-110"
+                      : status === "processing" || !isSpeechSupported
+                        ? "bg-amber-500 opacity-50 cursor-not-allowed"
                         : "bg-[#6c63ff] hover:bg-[#5a52d5] hover:scale-105 shadow-lg"
-                  }`}
-                  aria-label={mic.isListening ? "Stop listening" : "Start listening"}
-                  aria-pressed={mic.isListening}
+                    }`}
+                  aria-label="Tap to speak"
                 >
                   <Mic size={24} className="text-white pointer-events-none" />
-                </button>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <input
-                  value={mic.isListening && interim ? interim : input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && !e.shiftKey) {
-                      e.preventDefault();
-                      submit(input);
-                    }
-                  }}
-                  placeholder={mic.isListening ? "Listening…" : "Or type your question…"}
-                  disabled={isSending || mic.isListening}
-                  className="flex-1 min-w-0 text-sm outline-none rounded-full px-4 py-2 border transition-colors disabled:opacity-60"
-                  style={{
-                    color: "var(--text-primary)",
-                    backgroundColor: "var(--bg-card)",
-                    borderColor: "var(--border)",
-                  }}
-                />
-                <button
-                  onClick={() => submit(input)}
-                  disabled={isSending || !input.trim()}
-                  className="w-9 h-9 rounded-full bg-[#6c63ff] flex items-center justify-center text-white hover:bg-[#5a52d5] transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
-                  aria-label="Send message"
-                >
-                  <Send size={15} />
                 </button>
               </div>
             </div>
@@ -325,20 +366,23 @@ export default function VoiceBotWidget() {
         )}
       </AnimatePresence>
 
-      {/* Floating launcher */}
       <motion.button
-        onClick={() => (isOpen ? closePanel() : setIsOpen(true))}
+        onClick={() => setIsOpen((o) => !o)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.92 }}
         animate={isOpen ? {} : { y: [0, -5, 0, -3, 0] }}
         transition={
           isOpen
             ? {}
-            : { repeat: Infinity, duration: 3, ease: "easeInOut", repeatDelay: 1 }
+            : {
+              repeat: Infinity,
+              duration: 3,
+              ease: "easeInOut",
+              repeatDelay: 1,
+            }
         }
         className="relative flex items-center justify-center group"
         aria-label={isOpen ? "Close voice assistant" : "Open voice assistant"}
-        aria-expanded={isOpen}
       >
         <AnimatePresence mode="wait" initial={false}>
           {isOpen ? (
@@ -361,13 +405,11 @@ export default function VoiceBotWidget() {
               transition={{ duration: 0.18 }}
             >
               <Image
-                src={launcherIcon}
-                alt="Voice chat"
-                priority
+                src={chat12}
+                alt="Voice Chat"
+                priority={true}
                 className="w-24 h-24 object-contain drop-shadow-lg group-hover:scale-110 transition-transform"
-                width={800}
-                height={800}
-              />
+                width={800} height={800} />
             </motion.span>
           )}
         </AnimatePresence>

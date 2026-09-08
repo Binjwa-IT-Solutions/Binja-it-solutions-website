@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-
+import DOMPurify from "isomorphic-dompurify";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import { fetchBlogById, fetchLatestBlogs, fetchPreviousBlogs } from "../../lib/api/blogs";
@@ -174,9 +174,82 @@ export default function BlogPage({ initialData = null }) {
 
           {/* Dynamic Paragraph Looping Panels */}
           <div className="space-y-6 leading-relaxed text-base tracking-wide" style={{ color: "var(--text-muted)" }}>
-            {post.paragraphs.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
+            {post.contentBlocks && post.contentBlocks.length > 0 ? (
+              post.contentBlocks.map((block, index) => {
+                if (!block) return null;
+                
+                const sanitizeHTML = (html) => ({
+                  __html: DOMPurify.sanitize(html)
+                });
+
+                if (block.type === 'header' || block.type === 'heading') {
+                  const text = block.data?.text || block.content || '';
+                  const level = block.data?.level || block.level || 2;
+                  const Tag = `h${level}`;
+                  const sizeClass = level === 1 ? 'text-3xl' : level === 2 ? 'text-2xl' : level === 3 ? 'text-xl' : 'text-lg';
+                  return <Tag key={index} className={`font-serif font-bold my-5 ${sizeClass}`} style={{ color: "var(--text-primary)" }} dangerouslySetInnerHTML={sanitizeHTML(text)} />;
+                }
+                
+                if (block.type === 'paragraph') {
+                  const text = block.data?.text || block.content || '';
+                  return <p key={index} className="my-4" dangerouslySetInnerHTML={sanitizeHTML(text)} />;
+                }
+                
+                if (block.type === 'list') {
+                  const items = block.data?.items || block.items || [];
+                  const style = block.data?.style || block.style || 'unordered';
+                  const ListTag = style === 'ordered' ? 'ol' : 'ul';
+                  const listClass = style === 'ordered' ? 'list-decimal list-inside' : 'list-disc list-inside';
+                  return (
+                    <ListTag key={index} className={`my-4 space-y-2 ${listClass}`}>
+                      {items.map((item, i) => (
+                        <li key={i} dangerouslySetInnerHTML={sanitizeHTML(item)} />
+                      ))}
+                    </ListTag>
+                  );
+                }
+                
+                if (block.type === 'image') {
+                  const url = block.data?.file?.url || block.data?.url || block.url;
+                  const caption = block.data?.caption || block.caption;
+                  if (!url) return null;
+                  return (
+                    <figure key={index} className="my-6">
+                      <img src={url} alt={caption || 'Blog image'} className="rounded-lg w-full h-auto object-cover" />
+                      {caption && <figcaption className="text-center text-sm mt-2 text-gray-500">{caption}</figcaption>}
+                    </figure>
+                  );
+                }
+                
+                if (block.type === 'quote' || block.type === 'blockquote') {
+                  const text = block.data?.text || block.content || '';
+                  const caption = block.data?.caption || block.caption || '';
+                  return (
+                    <blockquote key={index} className="border-l-4 border-orange-500 pl-4 my-6 italic text-gray-700">
+                      <div dangerouslySetInnerHTML={sanitizeHTML(text)} />
+                      {caption && <footer className="text-sm mt-2 font-semibold">— {caption}</footer>}
+                    </blockquote>
+                  );
+                }
+
+                const fallbackText = block.data?.text || block.content;
+                if (fallbackText) {
+                  return <div key={index} className="my-2 whitespace-pre-wrap" dangerouslySetInnerHTML={sanitizeHTML(fallbackText)} />;
+                }
+                
+                return null;
+              })
+            ) : (
+              post.paragraphs && post.paragraphs.map((paragraph, index) => (
+                <div 
+                  key={index} 
+                  className="whitespace-pre-wrap my-4" 
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(paragraph)
+                  }} 
+                />
+              ))
+            )}
           </div>
         </div>
       </div>

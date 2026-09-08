@@ -52,9 +52,7 @@ export default function WhatIsAgenticAISection() {
               className="text-lg leading-relaxed max-w-2xl mx-auto mb-4"
               style={{ color: "var(--text-muted)" }}
             >
-              Just think of an intelligent member of your team that works without
-              ever resting or taking days off and never makes any errors; that's
-              the power of Agentic AI in action for your business.
+              Just imagine having a team member who never calls in sick, never forgets a follow-up, and never gets tired of doing the same task a hundred times a day. That's essentially what Agentic AI brings to your business.
             </motion.p>
 
             <motion.p
@@ -65,9 +63,7 @@ export default function WhatIsAgenticAISection() {
               className="text-lg leading-relaxed max-w-2xl mx-auto mb-10"
               style={{ color: "var(--text-muted)" }}
             >
-              Whether you're a startup or an enterprise company, you're losing
-              hundreds of man-hours each month doing mundane tasks. All of these
-              are important, but there's no need for a human anymore.
+              Most companies — whether they're just starting out or already running at scale — lose hundreds of hours every month on things like chasing leads, replying to the same customer questions, updating spreadsheets, and manually processing data. None of it requires a human brain, yet it eats up your team's entire day.
             </motion.p>
 
             {/* signature: task pipeline flowing into an AI orb */}
@@ -127,7 +123,7 @@ export default function WhatIsAgenticAISection() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="relative inline-block font-semibold text-orange-600 text-xl"
             >
-              Agentic AI does all this for you automatically, quickly and accurately.
+              Agentic AI takes all of that off your plate. It works quietly in the background, gets things done accurately, and doesn't need you to babysit it.
               <motion.span
                 className="absolute left-0 -bottom-1 h-[2px] bg-orange-500"
                 initial={{ width: 0 }}

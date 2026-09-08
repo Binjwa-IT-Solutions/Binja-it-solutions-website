@@ -5,7 +5,7 @@ export const aiCrmIntegrationContent = {
     breadcrumbs: [
       { name: "Home", url: "/" },
       { name: "Services", url: "#" },
-      { name: "Agentic AI Solutions", url: "/services/agentic-ai-solutions" },
+      { name: "Agentic AI Solutions", url: "/ai-solutions" },
       { name: "AI CRM Integration", url: "/services/agentic-ai-solutions/ai-crm-integration" }
     ],
   },

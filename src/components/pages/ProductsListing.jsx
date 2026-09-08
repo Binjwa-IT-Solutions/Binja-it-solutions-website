@@ -25,7 +25,7 @@ const ProductsListing = () => {
         "Integration with existing tools",
         "Advanced analytics and reporting"
       ],
-      detailsLink: "/products/agentic-ai",
+      detailsLink: "/ai-solutions",
       image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80"
     },
     {

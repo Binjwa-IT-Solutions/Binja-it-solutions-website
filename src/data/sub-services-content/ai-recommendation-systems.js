@@ -5,7 +5,7 @@ export const aiRecommendationSystemsContent = {
     breadcrumbs: [
       { name: "Home", url: "/" },
       { name: "Services", url: "#" },
-      { name: "Agentic AI Solutions", url: "/services/agentic-ai-solutions" },
+      { name: "Agentic AI Solutions", url: "/ai-solutions" },
       { name: "Recommendation Systems", url: "/services/agentic-ai-solutions/ai-recommendation-systems" }
     ],
   },
