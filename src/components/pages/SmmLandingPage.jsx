@@ -4,7 +4,6 @@ import { LandingHero } from '../smm-landing/Hero';
 import { LandingFeatures } from '../smm-landing/Features';
 import { LandingEcosystem } from '../smm-landing/Ecosystem';
 import { LandingHowItWorks } from '../smm-landing/HowItWorks';
-import { LandingPricing } from '../smm-landing/Pricing';
 import { LandingSocialProof } from '../smm-landing/SocialProof';
 import { LandingCTA } from '../smm-landing/Cta';
 // import { LandingFooter } from '../smm-landing/Footer';
@@ -17,7 +16,6 @@ export default function SmmLandingPage() {
       <LandingFeatures />
       <LandingEcosystem />
       <LandingHowItWorks />
-      <LandingPricing />
       <LandingSocialProof />
       <LandingCTA />
       {/* <LandingFooter /> */}

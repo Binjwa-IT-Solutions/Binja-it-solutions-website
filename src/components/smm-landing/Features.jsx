@@ -32,33 +32,33 @@ export function LandingFeatures() {
 
   const featuresData = [
     {
-      title: "It Actually Sounds Like You",
-      desc: "Binjwa learns your voice and values over time, so posts don't read like they came from a robot.",
+      title: "Authentic Brand Voice",
+      desc: "Binj SMM adapts to your custom brand tone, style guidelines, and vocabulary so every post feels natural and on-brand.",
       list: []
     },
     {
-      title: "One Post, Every Platform",
-      desc: "Write once, publish to Instagram, Facebook, LinkedIn, X, TikTok, Threads, Pinterest, WhatsApp, Bluesky, and YouTube — formatted right for each.",
+      title: "Multi-Channel Auto-Publishing",
+      desc: "Craft your message once. Binj SMM automatically adapts copy length, hashtags, and media formatting for every target network.",
       list: []
     },
     {
-      title: "Your Brand, Kept Consistent",
-      desc: "Colors, fonts, and tone stay locked in, even when five people on your team are posting.",
+      title: "Unified Brand Governance",
+      desc: "Lock in approved colors, fonts, and messaging guardrails so your entire team publishes with 100% visual and voice consistency.",
       list: []
     },
     {
-      title: "Make It Look Like Yours",
-      desc: "White-label it into your own platform, or use it standalone — your call.",
+      title: "White-Label & Agency Ready",
+      desc: "Deploy Binj SMM under your own brand identity and domain to provide a dedicated portal for your clients or internal teams.",
       list: []
     },
     {
-      title: "Post When People Are Actually Looking",
-      desc: "Binjwa predicts the best times to post for each platform, automatically.",
+      title: "Smart Peak-Time Scheduling",
+      desc: "Automatically schedule posts during optimal audience engagement windows across different time zones and platforms.",
       list: []
     },
     {
-      title: "See What's Actually Working",
-      desc: "All your analytics, across every channel, in one dashboard — no more tab-switching.",
+      title: "Comprehensive Cross-Platform Analytics",
+      desc: "Track engagement, follower growth, reach, and conversion metrics across all your social channels in one unified report.",
       list: []
     }
   ];
@@ -70,7 +70,7 @@ export function LandingFeatures() {
     <section id="features" className="bg-[#09090B] relative pt-24">
       <div className="max-w-7xl mx-auto px-6 mb-5 text-center overflow-hidden">
         <h2 className="text-2xl sm:text-3xl lg:text-[42px] xl:text-5xl font-extrabold text-white tracking-tight leading-tight whitespace-nowrap">
-          Why Teams Actually Stick With Binjwa
+          Why Growing Brands Choose Binj SMM
         </h2>
       </div>
       <div className="max-w-7xl mx-auto px-6">
@@ -139,7 +139,7 @@ const LaptopFrame = ({ children, badgeText }) => (
             <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
           </div>
           <div className="mx-auto bg-[#27272A] border border-[#3F3F46] rounded text-[9px] text-center text-[#A1A1AA] px-16 py-0.5 font-medium flex items-center gap-1">
-            binjwa-smm.app
+            binj-smm.app
           </div>
         </div>
         {/* App Content */}
@@ -387,7 +387,7 @@ function ListeningMockup() {
           </div>
           <div className="space-y-2.5 relative z-10">
             {[
-              { u: "@industry_leader", text: "Binjwa SMM just released a game-changing update for teams. Worth checking out.", tag: "Positive", color: "bg-emerald-900/30 text-emerald-400 border-emerald-800" },
+              { u: "@industry_leader", text: "Binj SMM just released a game-changing update for teams. Worth checking out.", tag: "Positive", color: "bg-emerald-900/30 text-emerald-400 border-emerald-800" },
               { u: "@tech_reviewer", text: "Deep dive into the top 5 SMM platforms of 2026. Thread 👇", tag: "Neutral", color: "bg-[#27272A] text-[#A1A1AA] border-[#3F3F46]" }
             ].map((m, i) => (
               <div key={i} className="flex gap-3 p-3 bg-[#09090B] hover:bg-[#18181B] transition-colors rounded-lg border border-[#27272A]">

@@ -18,28 +18,21 @@ export function LandingHero() {
           {/* Left Column: Content */}
           <div className="text-left text-balance">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/30 text-white text-sm font-medium mb-6 backdrop-blur-sm">
-              Smart Social Media Management, Simplified
+              AI-Powered Social Media Management
             </div>
 
-            <h1 className="text-5xl lg:text-6xl xl:text-[80px] font-bold text-white/90 mb-8 leading-[1.1]">
-              Stop Staring at a <br />Blank Caption Box
+            <h1 className="text-5xl lg:text-6xl xl:text-[76px] font-bold text-white/90 mb-8 leading-[1.1]">
+              Create Once. <br />Publish Everywhere. <br /><span className="text-[#F16522]">Grow Faster.</span>
             </h1>
 
-            <p className="text-lg lg:text-xl text-slate-500 mb-10 max-w-xl leading-relaxed">
-              Tell it what you're posting about. Binjwa creates the content, designs it, and matches your brand — then publishes it straight to Instagram, Facebook, TikTok, Threads, WhatsApp, LinkedIn and more, so you don't have to juggle multiple apps.
+            <p className="text-lg lg:text-xl text-slate-300 mb-10 max-w-xl leading-relaxed">
+              Binj SMM unifies multi-channel content scheduling, brand voice consistency, and real-time performance tracking into one simple, powerful platform.
             </p>
 
-
             <div className="flex flex-col sm:flex-row items-center justify-start gap-4 mb-10">
-              <Link href="/contact" className="inline-flex items-center justify-center h-14 px-8 text-lg font-semibold bg-[#F16522] hover:bg-[#E05A1A] text-white rounded-full transition-colors w-full sm:w-auto">
-                Start Creating Free
+              <Link href="/contact" className="inline-flex items-center justify-center h-14 px-8 text-lg font-semibold bg-[#F16522] hover:bg-[#E05A1A] text-white rounded-full transition-colors w-full sm:w-auto shadow-lg hover:shadow-[#F16522]/30">
+                Get Started with Binj SMM
               </Link>
-              {/* <button
-                onClick={() => setShowDemoModal(true)}
-                className="inline-flex items-center justify-center h-14 px-8 text-lg font-semibold bg-transparent border border-white/20 text-white hover:bg-white/10 rounded-full transition-colors w-full sm:w-auto"
-              >
-                Book a Demo
-              </button> */}
             </div>
 
             <div className="flex flex-wrap items-center justify-start gap-6 text-sm text-gray-400">
@@ -47,19 +40,19 @@ export function LandingHero() {
                 <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                No credit card needed
+                Multi-Account Ready
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Live in 5 minutes
+                100% Brand Consistency
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Cancel whenever
+                Quick 2-Minute Setup
               </div>
             </div>
           </div>

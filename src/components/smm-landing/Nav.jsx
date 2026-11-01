@@ -31,9 +31,6 @@ export function LandingNav() {
           <a href="#how-it-works" onClick={(e) => handleScroll(e, 'how-it-works')} className="text-gray-300 hover:text-white transition-colors">
             How It Works
           </a>
-          <a href="#pricing" onClick={(e) => handleScroll(e, 'pricing')} className="text-gray-300 hover:text-white transition-colors">
-            Pricing
-          </a>
           <Link href="/enterprise" className="text-gray-300 hover:text-white transition-colors">
             Enterprise
           </Link>

@@ -20,77 +20,29 @@ const servicesData = {
   services: [
     {
       title: "Agentic AI",
-      desc: "Innovative AI agents designed to automate workflows and optimize operations.",
+      desc: "Autonomous AI agents engineered to automate workflows, optimize operations, and perform complex multi-step reasoning.",
       path: "/ai-automation",
       image: "/images/hero-robot.png"
     },
     {
-      title: "Social Media Management",
-      desc: "Data-driven strategies to build your brand and engage your target audience.",
-      path: "/web-app-development",
-      image: "/images/digital_markting.jpeg"
+      title: "AI-Based Solutions",
+      desc: "Intelligent machine learning algorithms, smart predictive systems, and automated data processing tailored for business growth.",
+      path: "/ai-solutions",
+      image: "/images/AI_Chatbot_Development.webp"
     },
     {
-      title: "Software Development",
-      desc: "Scalable, high-performance software tailored to your specific business requirements.",
-      path: "/compliance",
+      title: "Custom Software Development",
+      desc: "Robust, secure, and scalable enterprise software systems tailored to your unique workflows and operational challenges.",
+      path: "/web-app-development",
       image: "/images/Software-Development.jpg"
     },
     {
-      title: "Legal & Compliance",
-      desc: "Expert guidance to ensure your business meets all regulatory and legal standards.",
-      path: "/digital-marketing",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
+      title: "Mobile & Web Development",
+      desc: "High-performance responsive websites, progressive web apps, and native mobile apps built for seamless user engagement.",
+      path: "/web-app-development",
+      image: "/Website Development Services.jpeg"
     },
   ],
-};
-
-// Interactive Word Component for the paragraph
-const InteractiveWord = ({ children }) => {
-  const word = children.replace(/[^a-zA-Z]/g, "").toLowerCase();
-  
-  // Emphasize specific tech/business related words slightly
-  const emphasisWords = ["technology", "ai", "solutions", "productivity", "automation", "digital", "business"];
-  const isEmphasis = emphasisWords.includes(word);
-
-  return (
-    <motion.span
-      className={`animated-word inline-block relative cursor-default ${isEmphasis ? "font-normal text-neutral-700" : ""}`}
-      whileHover="hover"
-      initial="initial"
-    >
-      <motion.span
-        className="relative z-10 inline-block"
-        variants={{
-          initial: { y: 0, color: "inherit", fontWeight: "inherit" },
-          hover: { y: -2, color: "#000000", fontWeight: 500 }
-        }}
-        transition={{ duration: 0.25, ease: "easeOut" }}
-      >
-        {children}
-      </motion.span>
-      
-      {/* Background Marker Highlight */}
-      <motion.span
-        className="absolute bottom-[2px] left-[-2px] right-[-2px] h-[40%] bg-orange-100/80 z-0 origin-left"
-        variants={{
-          initial: { scaleX: 0 },
-          hover: { scaleX: 1 }
-        }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
-      />
-
-      {/* Underline */}
-      <motion.span
-        className="absolute bottom-[-1px] left-0 h-[1.5px] bg-orange-500 origin-left z-0"
-        variants={{
-          initial: { width: "0%" },
-          hover: { width: "100%" }
-        }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
-      />
-    </motion.span>
-  );
 };
 
 // Magnetic Button Interaction Component
@@ -219,10 +171,10 @@ const Services = () => {
         { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }
       );
 
-      // Staggered word reveal for typography
-      tl.fromTo(".animated-word", 
+      // Paragraph reveal
+      tl.fromTo(".service-desc-p", 
         { y: 15, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.015, ease: "power2.out" },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power2.out" },
         "-=0.6"
       );
 
@@ -248,9 +200,9 @@ const Services = () => {
         { opacity: 1, duration: 0.8, stagger: 0.1, ease: "power2.out" }
       );
       
-      tl.fromTo(".animated-word", 
+      tl.fromTo(".service-desc-p", 
         { opacity: 0 },
-        { opacity: 1, duration: 0.4, stagger: 0.01, ease: "power2.out" },
+        { opacity: 1, duration: 0.4, stagger: 0.1, ease: "power2.out" },
         "-=0.6"
       );
 
@@ -315,13 +267,8 @@ const Services = () => {
           <div className="md:w-[65%] mt-2 md:mt-0">
             <div className="text-[16px] md:text-[18px] leading-relaxed text-neutral-500 font-light space-y-6 max-w-2xl">
               {servicesData.description.split('\n\n').map((para, i) => (
-                <p key={i}>
-                  {para.split(' ').map((word, j) => (
-                    <React.Fragment key={`${i}-${j}`}>
-                      <InteractiveWord>{word}</InteractiveWord>
-                      {" "}
-                    </React.Fragment>
-                  ))}
+                <p key={i} className="service-desc-p">
+                  {para}
                 </p>
               ))}
             </div>

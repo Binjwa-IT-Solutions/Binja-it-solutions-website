@@ -245,7 +245,7 @@ const SMMMockup = () => (
 const productsData = [
   {
     badge: "AI Automation",
-    title: "Agentic AI",
+    title: "BinjAI",
     description: "Intelligent AI-powered automation that learns and adapts to your business processes. Automate complex workflows with autonomous agents.",
     features: [
       { icon: Bot, title: "Autonomous Task Execution", desc: "Automate complex workflows with intelligent agents that learn.", active: false },
@@ -258,7 +258,7 @@ const productsData = [
   },
   {
     badge: "Digital Growth",
-    title: "Social Media Management",
+    title: "Binj SMM",
     description: "Complete social media management platform for scheduling, analytics, and engagement. Manage all your social channels from one dashboard.",
     features: [
       { icon: CalendarDays, title: "Multi-Channel Scheduling", desc: "Plan and publish content across all your platforms from one dashboard.", active: false },
@@ -324,7 +324,7 @@ const ProductCard = ({ product }) => {
                     {/* Badge */}
                     <div className="flex items-center gap-2 mb-4">
                         <div className="text-orange-500">
-                            {product.title === "Agentic AI" ? <Bot size={16} /> : <BarChart3 size={16} />}
+                            {product.title === "BinjAI" ? <Bot size={16} /> : <BarChart3 size={16} />}
                         </div>
                         <span className="text-orange-500 font-bold tracking-wider uppercase text-[10px]">
                             {product.badge}
