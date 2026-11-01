@@ -158,7 +158,7 @@ const Footer = () => {
     const companyLinks = [
         { name: "Home", path: "/" },
         { name: "About Us", path: "/about" },
-        { name: "Services", path: "/services" },
+        { name: "Services", path: "/#services" },
         { name: "Portfolio", path: "/portfolio" },
         { name: "Case Studies", path: "/case-studies" },
         { name: "Blog", path: "/blogs" },

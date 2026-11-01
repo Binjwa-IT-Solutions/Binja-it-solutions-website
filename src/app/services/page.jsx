@@ -1,24 +1,26 @@
-import React from "react";
-import ServicesAccordion from "../../components/services/ServicesAccordion";
+"use client";
 
-export const metadata = {
-  title: "All Services | Binjwa IT Solutions",
-  description: "Explore our comprehensive suite of IT solutions including AI, Web Development, and Digital Marketing.",
-};
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ServicesOverviewPage() {
-  return (
-    <main className="min-h-screen theme-bg pt-32 pb-24 px-6">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold theme-text mb-6">
-          Our Services
-        </h1>
-        <p className="text-xl theme-text-secondary mb-16 max-w-3xl">
-          We provide end-to-end digital solutions tailored to accelerate your business growth. Choose a category below to explore our specific offerings.
-        </p>
+  const router = useRouter();
 
-        <ServicesAccordion />
+  useEffect(() => {
+    // Redirect immediately to the 4-card services section on the home page
+    if (typeof window !== "undefined") {
+      window.location.replace("/#services");
+    } else {
+      router.replace("/#services");
+    }
+  }, [router]);
+
+  return (
+    <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
+        <p className="text-neutral-600 text-sm font-medium">Redirecting to Services...</p>
       </div>
-    </main>
+    </div>
   );
 }

@@ -40,14 +40,31 @@ const Navbar = ({ handleShowBanner, hasBanner }) => {
         { name: "About Us", href: "/about" },
         {
             name: "Services",
-            href: "/services",
+            href: "/#services",
             isMega: true,
             isServicesMega: true,
-            subLinks: servicesData.map(service => ({
-                name: service.name,
-                href: service.slug === 'agentic-ai-solutions' ? '/ai-automation' : `/services/${service.slug}`,
-                subServices: service.subServices
-            })),
+            subLinks: [
+                {
+                    name: "Agentic AI",
+                    href: "/ai-automation",
+                    desc: "Autonomous AI agents engineered to automate workflows & operations."
+                },
+                {
+                    name: "AI-Based Solutions",
+                    href: "/ai-solutions",
+                    desc: "Intelligent machine learning algorithms & automated data processing."
+                },
+                {
+                    name: "Custom Software Development",
+                    href: "/custom-software-development",
+                    desc: "Robust, secure, and scalable enterprise software systems."
+                },
+                {
+                    name: "Mobile & Web Development",
+                    href: "/web-app-development",
+                    desc: "High-performance responsive websites and mobile apps."
+                },
+            ],
         },
         // {
         //     name: "Industries",

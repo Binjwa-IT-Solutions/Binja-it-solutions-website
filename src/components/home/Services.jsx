@@ -33,7 +33,7 @@ const servicesData = {
     {
       title: "Custom Software Development",
       desc: "Robust, secure, and scalable enterprise software systems tailored to your unique workflows and operational challenges.",
-      path: "/web-app-development",
+      path: "/custom-software-development",
       image: "/images/Software-Development.jpg"
     },
     {
@@ -215,7 +215,7 @@ const Services = () => {
   }, { scope: container });
 
   return (
-    <section ref={container} className="py-24 md:py-32 px-6 lg:px-16 bg-white relative overflow-hidden">
+    <section id="services" ref={container} className="py-24 md:py-32 px-6 lg:px-16 bg-white relative overflow-hidden scroll-mt-20">
       
       {/* Subtle warm-gray background accent (strictly avoiding unapproved colors) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
