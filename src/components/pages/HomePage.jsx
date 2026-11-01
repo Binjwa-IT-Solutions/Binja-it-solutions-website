@@ -6,7 +6,6 @@ import StatsSection from "../home/StatsSection";
 import Services from "../home/Services";
 import WhyChooseUs from "../home/WhyChooseUs";
 import FAQSection from "../home/FAQSection";
-import TrustPartnership from "../home/TrustPartnership";
 import OurProducts from "../home/OurProducts";
 
 export default function HomePage() {
@@ -17,7 +16,6 @@ export default function HomePage() {
       <Hero />
       <Services />
       <WhyChooseUs />
-      <TrustPartnership />
       <OurProducts />
       <StatsSection />
       <FAQSection />

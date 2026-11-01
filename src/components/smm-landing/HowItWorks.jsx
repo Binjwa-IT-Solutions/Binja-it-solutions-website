@@ -6,28 +6,28 @@ import { motion, useScroll } from "framer-motion";
 const steps = [
   {
     number: 1,
-    title: "Show Us Your Brand",
-    description: "Upload your logo, colors, and voice guidelines. We learn what makes you unique.",
+    title: "Connect Your Channels & Brand Profile",
+    description: "Link your social accounts and set your tone, brand guidelines, and visual identity in minutes.",
   },
   {
     number: 2,
-    title: "Let Binjwa Take a Swing",
-    description: "Our AI generates complete, on-brand posts for all your platforms in seconds.",
+    title: "Create & Curate On-Brand Posts",
+    description: "Input your topic, campaign idea, or promotion to generate tailored copy, visuals, and hashtags instantly.",
   },
   {
     number: 3,
-    title: "Make It Yours",
-    description: "Review, tweak, or regenerate instantly until it's exactly how you want it.",
+    title: "Review & Approve with Your Team",
+    description: "Preview exact feed mockups across desktop and mobile, refine copy, and approve with team members.",
   },
   {
     number: 4,
-    title: "Send It Everywhere",
-    description: "Publish immediately or schedule ahead to Instagram, Facebook, TikTok, Threads, WhatsApp, LinkedIn, and more.",
+    title: "Auto-Publish Across All Networks",
+    description: "Schedule content to post automatically at peak audience hours or publish immediately to all connected profiles.",
   },
   {
     number: 5,
-    title: "Track & Engage",
-    description: "Monitor your performance and respond to your audience from one centralized dashboard.",
+    title: "Analyze Performance & Scale",
+    description: "Track cross-channel impressions, follower trends, and top-performing posts to continuously optimize your strategy.",
   },
 ];
 
@@ -53,7 +53,7 @@ export function LandingHowItWorks() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-4xl md:text-5xl font-bold text-white mb-4"
           >
-            From Idea to Published Post — 5 Steps
+            How Binj SMM Works — 5 Simple Steps
           </motion.h2>
         </div>
 

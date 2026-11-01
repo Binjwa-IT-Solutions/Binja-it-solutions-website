@@ -27,7 +27,7 @@ const servicesData = {
     {
       title: "AI-Based Solutions",
       desc: "Intelligent machine learning algorithms, smart predictive systems, and automated data processing tailored for business growth.",
-      path: "/ai-automation",
+      path: "/ai-solutions",
       image: "/images/AI_Chatbot_Development.webp"
     },
     {

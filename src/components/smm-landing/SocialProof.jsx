@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const testimonials = [
   {
-    quote: "I used to spend a full afternoon writing captions for every platform. Now it's maybe 20 minutes, and honestly Binjwa's suggestions sound more 'on-brand' than some of my own drafts did.",
+    quote: "I used to spend a full afternoon writing captions for every platform. Now it's maybe 20 minutes, and honestly Binj SMM's suggestions sound more 'on-brand' than some of my own drafts did.",
     author: "Sarah Chen",
     role: "Marketing Director",
     company: "TechFlow",
@@ -40,7 +40,7 @@ export function LandingSocialProof() {
             viewport={{ once: true, amount: 0.5 }}
             className="text-3xl md:text-4xl font-bold text-white mb-4"
           >
-            Real Teams, Real Time Saved
+            Engineered for Consistency, Speed & Measurable Reach
           </motion.h2>
         </div>
 

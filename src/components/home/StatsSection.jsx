@@ -17,8 +17,8 @@ const statsData = {
     subtitle: "Real numbers that reflect our ongoing journey, dedication to our clients, and reliable service.",
     stats: [
         { icon: Calendar, value: "2025", prefix: "Since ", label: "In Business", description: "Delivering modern software, web, and AI solutions." },
-        { icon: Briefcase, value: 12, suffix: "+", label: "Projects Delivered", description: "Successfully delivered tailored solutions for our clients." },
-        { icon: Smile, value: 10, suffix: "+", label: "Happy Clients", description: "Building transparent and long-lasting partnerships." },
+        { icon: Briefcase, value: 7, suffix: "+", label: "Projects Delivered", description: "Successfully delivered tailored solutions for our clients." },
+        { icon: Smile, value: 8, suffix: "+", label: "Happy Clients", description: "Building transparent and long-lasting partnerships." },
         { icon: Headphones, value: 24, suffix: "/7", label: "Support Available", description: "Round-the-clock availability and prompt technical assistance." },
         { icon: Star, value: 100, suffix: "%", label: "Client Dedication", description: "Focused on reliable delivery and authentic client satisfaction." },
     ],
