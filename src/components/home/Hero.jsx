@@ -7,120 +7,6 @@ const heroData = {
   videoSrc: "/mainVideo.mp4",
 };
 
-// Canvas-based Glowing Cursor Trail Effect
-const CursorLineTrail = () => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (isTouch || reducedMotion) return;
-
-    const canvas = canvasRef.current;
-    if (!canvas || !canvas.parentElement) return;
-    const ctx = canvas.getContext('2d');
-    
-    let points = [];
-    let animationFrameId;
-    
-    const resize = () => {
-      if (!canvas.parentElement) return;
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight;
-    };
-    
-    window.addEventListener('resize', resize);
-    const observer = new ResizeObserver(resize);
-    observer.observe(canvas.parentElement);
-    resize();
-
-    const handleMouseMove = (e) => {
-      const rect = canvas.getBoundingClientRect();
-      points.push({ 
-        x: e.clientX - rect.left, 
-        y: e.clientY - rect.top, 
-        age: 0 
-      });
-    };
-    
-    canvas.parentElement.addEventListener('mousemove', handleMouseMove);
-
-    const render = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      for (let i = 0; i < points.length; i++) {
-        points[i].age++;
-      }
-      points = points.filter(p => p.age < 45);
-      
-      if (points.length > 2) {
-        for (let i = 1; i < points.length - 1; i++) {
-          const p0 = points[i - 1];
-          const p1 = points[i];
-          const p2 = points[i + 1];
-          
-          const lifePercent = Math.max(0, 1 - (p1.age / 45));
-          
-          ctx.beginPath();
-          
-          const mid1x = (p0.x + p1.x) / 2;
-          const mid1y = (p0.y + p1.y) / 2;
-          
-          const mid2x = (p1.x + p2.x) / 2;
-          const mid2y = (p1.y + p2.y) / 2;
-          
-          ctx.moveTo(mid1x, mid1y);
-          ctx.quadraticCurveTo(p1.x, p1.y, mid2x, mid2y);
-          
-          ctx.strokeStyle = `rgba(249, 115, 22, ${lifePercent * 1})`; // Binjwa orange
-          ctx.lineWidth = Math.max(0.1, lifePercent * 6); // Thicker for better glow
-          ctx.lineCap = 'round';
-          
-          if (lifePercent > 0.4) {
-             ctx.shadowBlur = 15;
-             ctx.shadowColor = 'rgba(249, 115, 22, 1)';
-          } else {
-             ctx.shadowBlur = 0;
-          }
-          
-          ctx.stroke();
-        }
-
-        // Draw the tip (newest point) to perfectly connect to cursor
-        const last = points[points.length - 1];
-        const prev = points[points.length - 2];
-        const lifePercent = Math.max(0, 1 - (last.age / 45));
-        
-        ctx.beginPath();
-        ctx.moveTo((prev.x + last.x) / 2, (prev.y + last.y) / 2);
-        ctx.lineTo(last.x, last.y);
-        ctx.strokeStyle = `rgba(249, 115, 22, ${lifePercent * 1})`;
-        ctx.lineWidth = Math.max(0.1, lifePercent * 6);
-        ctx.lineCap = 'round';
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = 'rgba(249, 115, 22, 1)';
-        ctx.stroke();
-      }
-      
-      animationFrameId = requestAnimationFrame(render);
-    };
-    
-    render();
-    
-    return () => {
-      window.removeEventListener('resize', resize);
-      if (canvas.parentElement) {
-        canvas.parentElement.removeEventListener('mousemove', handleMouseMove);
-        observer.unobserve(canvas.parentElement);
-      }
-      observer.disconnect();
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 z-[2] w-full h-full mix-blend-screen hidden md:block" />;
-};
-
 // 3D Tilt Card Wrapper Component
 const TiltCard = ({ children, className, href }) => {
   const ref = useRef(null);
@@ -276,9 +162,6 @@ const Hero = () => {
         transition={{ duration: 0.8, ease: "easeInOut" }}
       />
 
-      {/* Layer 2.5: Interactive Cursor Trail */}
-      <CursorLineTrail />
-
       {/* Main Content Area */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-12 flex-1">
         
@@ -351,7 +234,7 @@ const Hero = () => {
           style={{ x: cardsX, y: cardsY }}
           className="w-full lg:w-[45%] relative md:h-[450px] mt-12 md:mt-0 flex flex-col md:block items-center gap-6 pointer-events-none md:pointer-events-auto"
         >
-          {/* Card 1: Agentic AI */}
+          {/* Card 1: BinjAI */}
           <motion.div 
             animate={{ y: [-10, 10, -10] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -366,7 +249,7 @@ const Hero = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-white group-hover:text-orange-400 transition-colors">Agentic AI</h3>
+                    <h3 className="text-base font-bold text-white group-hover:text-orange-400 transition-colors">BinjAI</h3>
                     <p className="text-xs text-gray-400 mt-0.5">AI-Powered Automation</p>
                   </div>
                 </div>
@@ -383,7 +266,7 @@ const Hero = () => {
             </TiltCard>
           </motion.div>
 
-          {/* Card 2: Social Media Management */}
+          {/* Card 2: Binj SMM */}
           <motion.div 
             animate={{ y: [12, -12, 12] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
@@ -397,7 +280,7 @@ const Hero = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white group-hover:text-orange-400 transition-colors">Social Media Management</h3>
+                  <h3 className="text-base font-bold text-white group-hover:text-orange-400 transition-colors">Binj SMM</h3>
                   <p className="text-xs text-gray-400 mt-0.5">Create • Schedule • Grow</p>
                 </div>
               </div>
@@ -414,69 +297,6 @@ const Hero = () => {
           </motion.div>
 
         </motion.div>
-      </div>
-
-      {/* Hero Bottom — Trust/Stats with Layer 3 Parallax */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-        style={{ x: contentX, y: contentY }}
-        className="w-full z-10 hidden sm:block pb-10"
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-wrap items-center gap-x-12 gap-y-6 border-t border-white/10 pt-6">
-            
-            <div className="flex items-center gap-4">
-              <span className="text-4xl font-bold text-white tracking-tight">30+</span>
-              <span className="text-xs text-gray-400 font-medium uppercase tracking-wider leading-snug">Projects<br/>Delivered</span>
-            </div>
-            
-            <div className="w-px h-10 bg-white/10 hidden md:block"></div>
-            
-            <div className="flex items-center gap-4">
-              <span className="text-4xl font-bold text-white tracking-tight">50+</span>
-              <span className="text-xs text-gray-400 font-medium uppercase tracking-wider leading-snug">Happy<br/>Clients</span>
-            </div>
-            
-            <div className="w-px h-10 bg-white/10 hidden md:block"></div>
-            
-            <div className="flex items-center gap-4">
-              <span className="text-4xl font-bold text-white tracking-tight">24/7</span>
-              <span className="text-xs text-gray-400 font-medium uppercase tracking-wider leading-snug">Premium<br/>Support</span>
-            </div>
-            
-            <div className="w-px h-10 bg-white/10 hidden md:block"></div>
-            
-            <div className="flex items-center gap-4">
-              <span className="text-4xl font-bold text-white tracking-tight">934</span>
-              <span className="text-xs text-gray-400 font-medium uppercase tracking-wider leading-snug">Client<br/>Satisfaction</span>
-            </div>
-            
-          </div>
-        </div>
-      </motion.div>
-      
-      {/* Mobile Stats (stacked) */}
-      <div className="relative z-10 w-full px-6 pb-12 sm:hidden pointer-events-none">
-        <div className="grid grid-cols-2 gap-y-8 gap-x-4 border-t border-white/10 pt-8 pointer-events-auto">
-          <div>
-            <div className="text-3xl font-bold text-white mb-1">30+</div>
-            <div className="text-[10px] text-gray-400 uppercase tracking-wider">Projects Delivered</div>
-          </div>
-          <div>
-            <div className="text-3xl font-bold text-white mb-1">50+</div>
-            <div className="text-[10px] text-gray-400 uppercase tracking-wider">Happy Clients</div>
-          </div>
-          <div>
-            <div className="text-3xl font-bold text-white mb-1">24/7</div>
-            <div className="text-[10px] text-gray-400 uppercase tracking-wider">Premium Support</div>
-          </div>
-          <div>
-            <div className="text-3xl font-bold text-white mb-1">934</div>
-            <div className="text-[10px] text-gray-400 uppercase tracking-wider">Satisfaction</div>
-          </div>
-        </div>
       </div>
       
     </div>
