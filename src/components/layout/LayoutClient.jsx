@@ -9,10 +9,7 @@ import Footer from "@/components/layout/Footer";
 import Banner from "@/components/Compliance/Banner/Banner";
 import dynamic from 'next/dynamic';
 import ChatbotWidget from "@/components/Chatbot/ChatbotWidget";
-<<<<<<< HEAD
 import FloatingSocialMedia from "@/components/layout/FloatingSocialMedia";
-=======
->>>>>>> f57c552f8cb7557568234b6465d422184ed7152c
 
 // Lazy load heavy widgets to unblock the main thread
 const VoiceBotWidget = dynamic(() => import("@/components/Chatbot/VoiceBotWidget"), { ssr: false });
@@ -80,10 +77,7 @@ export default function LayoutClient({ children }) {
           <ChatbotWidgetLazy />
         </div>
       </div>
-<<<<<<< HEAD
       <FloatingSocialMedia />
-=======
->>>>>>> f57c552f8cb7557568234b6465d422184ed7152c
     </>
   );
 }

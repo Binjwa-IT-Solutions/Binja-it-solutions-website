@@ -253,11 +253,7 @@ const productsData = [
       { icon: Blocks, title: "Seamless Integrations", desc: "Connect effortlessly with your existing business tools.", active: false },
       { icon: Activity, title: "Real-time Adaptation", desc: "AI that continuously learns and optimizes your processes on the fly.", active: false }
     ],
-<<<<<<< HEAD
     link: "/ai-automation",
-=======
-    link: "/ai-solutions",
->>>>>>> f57c552f8cb7557568234b6465d422184ed7152c
     visual: <AgenticAIMockup />
   },
   {

@@ -30,11 +30,7 @@ const devOrigins = getLocalIPv4Addresses();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-<<<<<<< HEAD
   output: process.env.NODE_ENV === "development" ? undefined : "export",
-=======
-  output: "export",
->>>>>>> f57c552f8cb7557568234b6465d422184ed7152c
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -49,7 +45,6 @@ const nextConfig = {
     turbopackFileSystemCacheForDev: true,
   },
   ...(devOrigins && { allowedDevOrigins: devOrigins }),
-<<<<<<< HEAD
   async rewrites() {
     return [
       {
@@ -62,8 +57,6 @@ const nextConfig = {
       },
     ];
   },
-=======
->>>>>>> f57c552f8cb7557568234b6465d422184ed7152c
 };
 
 export default nextConfig;
