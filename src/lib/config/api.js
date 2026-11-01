@@ -38,7 +38,7 @@ export const API_BASE_URL = resolve(
 export const CHATBOT_API_URL = resolve(
   process.env.NEXT_PUBLIC_CHATBOT_API_URL,
   CHATBOT_UPSTREAM,
-  "/chatbot-proxy",
+  CHATBOT_UPSTREAM,
 );
 
 /** Hard ceiling for server-side data fetches so a slow backend can never stall a build. */

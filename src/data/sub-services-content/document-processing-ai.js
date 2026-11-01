@@ -5,7 +5,7 @@ export const documentProcessingAiContent = {
     breadcrumbs: [
       { name: "Home", url: "/" },
       { name: "Services", url: "#" },
-      { name: "Agentic AI Solutions", url: "/services/agentic-ai-solutions" },
+      { name: "Agentic AI Solutions", url: "/ai-automation" },
       { name: "Document Processing AI", url: "/services/agentic-ai-solutions/document-processing-ai" }
     ],
   },

@@ -1,10 +1,41 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
+import toast from 'react-hot-toast';
+import { submitContactForm } from '@/lib/api/contact';
 
 export function DemoModal({ isOpen, onClose }) {
+  const [formData, setFormData] = useState({ name: "", email: "", company: "", phone: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    const toastId = toast.loading("Requesting demo...");
+    
+    try {
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || "N/A",
+        message: `Demo requested for Company: ${formData.company || 'N/A'}`
+      };
+      
+      const result = await submitContactForm(payload);
+      toast.success(result.message || "Demo requested successfully!", { id: toastId });
+      
+      setFormData({ name: "", email: "", company: "", phone: "" });
+      onClose();
+    } catch (error) {
+      toast.error(error.message || "An error occurred.", { id: toastId });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
@@ -61,11 +92,14 @@ export function DemoModal({ isOpen, onClose }) {
 
               {/* Form */}
               <div className="p-6 overflow-y-auto" data-lenis-prevent>
-                <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); onClose(); }}>
+                <form className="space-y-4" onSubmit={handleSubmit}>
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-1.5">Name</label>
                     <input
                       type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
                       placeholder="John Doe"
                       className="w-full bg-[#1A1A1A] border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-[#F16522] focus:ring-1 focus:ring-[#F16522] transition-colors"
                       required
@@ -75,6 +109,9 @@ export function DemoModal({ isOpen, onClose }) {
                     <label className="block text-sm font-medium text-gray-300 mb-1.5">Work Email</label>
                     <input
                       type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       placeholder="john@company.com"
                       className="w-full bg-[#1A1A1A] border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-[#F16522] focus:ring-1 focus:ring-[#F16522] transition-colors"
                       required
@@ -84,6 +121,9 @@ export function DemoModal({ isOpen, onClose }) {
                     <label className="block text-sm font-medium text-gray-300 mb-1.5">Company Name</label>
                     <input
                       type="text"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
                       placeholder="Company Inc."
                       className="w-full bg-[#1A1A1A] border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-[#F16522] focus:ring-1 focus:ring-[#F16522] transition-colors"
                       required
@@ -93,6 +133,9 @@ export function DemoModal({ isOpen, onClose }) {
                     <label className="block text-sm font-medium text-gray-300 mb-1.5">Phone Number</label>
                     <input
                       type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
                       placeholder="+1 (555) 000-0000"
                       className="w-full bg-[#1A1A1A] border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-[#F16522] focus:ring-1 focus:ring-[#F16522] transition-colors"
                     />
@@ -101,9 +144,10 @@ export function DemoModal({ isOpen, onClose }) {
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full bg-[#F16522] hover:bg-[#E05A1A] text-white font-semibold py-3 px-4 rounded-lg transition-colors shadow-[0_0_20px_rgba(241,101,34,0.3)]"
+                      disabled={isSubmitting}
+                      className="w-full bg-[#F16522] hover:bg-[#E05A1A] text-white font-semibold py-3 px-4 rounded-lg transition-colors shadow-[0_0_20px_rgba(241,101,34,0.3)] disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                      Request Demo
+                      {isSubmitting ? "Submitting..." : "Request Demo"}
                     </button>
                   </div>
                 </form>

@@ -2,86 +2,78 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Bot, MessageCircle, Share2, Users, Settings, Lightbulb, ArrowRight } from "lucide-react";
+import { Bot, MessageCircle, Settings, Users, Mic, FileText, ThumbsUp, LineChart, Brain, Headphones, ArrowRight } from "lucide-react";
 
 const services = [
   {
-    title: "AI Agents & Automation",
-    icon: Bot,
-    color: "text-orange-500",
-    desc: "Our custom AI agents take care of all your business operations automatically – from lead generation to follow-up, order processing to reporting – without any human intervention.",
-    bullets: [
-      "Perform repetitive tasks automatically – 24x7",
-      "Make intelligent decisions based on business rules",
-      "Integrate with your current system seamlessly",
-      "No error, no delay, no manual effort",
-      "Easily scalable with business growth"
-    ]
-  },
-  {
-    title: "AI Chatbots & Assistants",
+    title: "AI Chatbots & Virtual Assistants",
     icon: MessageCircle,
     color: "text-orange-500",
-    desc: "Intelligent virtual assistants that are always online on your website, app, and messaging platforms, ready to answer questions, generate leads, and book appointments.",
-    bullets: [
-      "Answer customer queries instantly – round the clock",
-      "Capture and qualify leads automatically",
-      "Book appointments on your behalf",
-      "Tackle FAQs to keep your team busy with complex queries",
-      "Multiple languages support"
-    ]
+    desc: "Customers don't wait for business hours to ask questions. Our AI chatbots and virtual assistants will answer queries, qualify leads, and book appointments, ensuring seamless communication.",
+    cta: "Explore AI Chatbots & Virtual Assistants →"
   },
   {
-    title: "WhatsApp Automation",
-    icon: Share2,
+    title: "Custom AI Agents / Task Automation",
+    icon: Bot,
     color: "text-orange-500",
-    desc: "Advanced WhatsApp automation solutions that send messages, nurture leads, give updates, gather data, and manage customer conversations completely automated.",
-    bullets: [
-      "Send automatic follow-up messages right away",
-      "Update about orders, remind, and notify customers",
-      "Gather customer data through chat conversations",
-      "Converse without doing anything manually",
-      "Launch your own marketing campaign on WhatsApp"
-    ]
+    desc: "There's no reason why your business should still do routine tasks manually. With our customized AI agents, we'll automate your routine tasks as well as complex business processes.",
+    cta: "Explore Custom AI Agents / Task Automation →"
   },
   {
-    title: "CRM Automation",
-    icon: Users,
-    color: "text-orange-500",
-    desc: "Ensure all leads get captured, scored, assigned, and followed up in time. Your sales team will concentrate only on closing deals, not on chasing people.",
-    bullets: [
-      "Automatically capture leads from any source",
-      "Score and prioritize leads for your team",
-      "Automatically assign leads appropriately",
-      "Send follow-up emails and messages in time",
-      "Manage all interactions from one dashboard"
-    ]
-  },
-  {
-    title: "Workflow Automation",
+    title: "Workflow Automation (RPA)",
     icon: Settings,
     color: "text-orange-500",
-    desc: "We map, design and automate all your company's workflows from data entry, approvals, to reporting so that everything works seamlessly without manual effort.",
-    bullets: [
-      "Stop wasting your time with manual data entry",
-      "Automate all approvals and receive instant notifications",
-      "Integrate various tools and platforms into one system",
-      "Make reports and summaries automatically",
-      "Get rid of all human errors from your workflow"
-    ]
+    desc: "Most companies have processes that can operate independently. Let us automate the routine parts of your business workflow including data entry, approval, reporting, and others.",
+    cta: "Explore Workflow Automation (RPA) →"
   },
   {
-    title: "AI Consulting",
-    icon: Lightbulb,
+    title: "AI-Powered CRM Integration",
+    icon: Users,
     color: "text-orange-500",
-    desc: "Don't know how to use AI? We help you determine exactly what areas of your business can be optimized through AI to save time and money.",
-    bullets: [
-      "Complete audit of all business processes",
-      "Determine exactly where AI can save you time",
-      "Custom AI strategy and roadmap for your company",
-      "Practical tool and technology recommendations",
-      "Step-by-step guidance and assistance"
-    ]
+    desc: "A well-working CRM depends on its utilization by your company, and often employees just don't have time for it. Integrating our AI directly into your CRM will take care of lead capturing, scoring, and follow-up automatically.",
+    cta: "Explore AI-Powered CRM Integration →"
+  },
+  {
+    title: "Voice AI / Voice Bots",
+    icon: Mic,
+    color: "text-orange-500",
+    desc: "Customers sometimes simply want to have a call rather than an online discussion. Our voice AI bots handle calls, answer questions and book appointments using human-like voice 24/7.",
+    cta: "Explore Voice AI / Voice Bots →"
+  },
+  {
+    title: "Document Processing & Data Extraction",
+    icon: FileText,
+    color: "text-orange-500",
+    desc: "Nobody enjoys processing contracts, invoices, or other documents manually. Our AI technology will read and extract needed data from your documents in minutes accurately and with minimum effort.",
+    cta: "Explore Document Processing & Data Extraction →"
+  },
+  {
+    title: "AI Recommendation Systems",
+    icon: ThumbsUp,
+    color: "text-orange-500",
+    desc: "Suggesting the right thing at the right moment makes all the difference. Using our AI technology, we create recommendation engines which will guide customers toward the right purchase.",
+    cta: "Explore AI Recommendation Systems →"
+  },
+  {
+    title: "Predictive Analytics",
+    icon: LineChart,
+    color: "text-orange-500",
+    desc: "Trying to guess what's going to happen next can cost your business dearly. Our advanced predictive analytics system can help to detect trends and patterns and base your decisions on actual future possibilities.",
+    cta: "Explore Predictive Analytics →"
+  },
+  {
+    title: "Custom LLM Integration",
+    icon: Brain,
+    color: "text-orange-500",
+    desc: "AI applications out-of-the-box are not enough. Integrate large language models into your business processes, training them specifically for your company so that the AI understands your business, not just information in general.",
+    cta: "Explore Custom LLM Integration →"
+  },
+  {
+    title: "AI Customer Support Automation",
+    icon: Headphones,
+    color: "text-orange-500",
+    desc: "Don’t let support tickets wait in a queue for hours. Your AI system will answer customers’ typical questions right away and pass complicated cases to your team.",
+    cta: "Explore AI Customer Support Automation →"
   }
 ];
 
@@ -155,14 +147,11 @@ const ServiceCard = ({ service, index }) => {
               </h3>
             </div>
 
-            <ul className="space-y-3.5 mb-5">
-              {service.bullets.map((bullet, j) => (
-                <div key={j} className="flex items-start gap-3">
-                  <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0 shadow-[0_0_6px_rgba(249,115,22,0.6)]" />
-                  <span className="font-medium text-[15px] sm:text-[16px] leading-snug" style={{ color: "var(--text-muted)" }}>{bullet}</span>
-                </div>
-              ))}
-            </ul>
+            <div className="space-y-3.5 mb-5 h-full">
+              <p className="font-medium text-[15px] sm:text-[16px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                {service.desc}
+              </p>
+            </div>
 
             <div className="mt-auto pt-4 border-t flex items-center gap-2" style={{ borderColor: "var(--border)" }}>
               <span className="text-xs sm:text-sm font-bold text-orange-500 uppercase tracking-wide">
@@ -205,7 +194,7 @@ const ServiceCard = ({ service, index }) => {
               className="mt-auto w-full py-3.5 rounded-xl font-bold text-sm sm:text-base transition-colors shadow-lg active:scale-95 flex items-center justify-center"
               style={{ backgroundColor: "var(--accent)", color: "white" }}
             >
-              Learn More
+              {service.cta || "Learn More"}
             </div>
           </div>
         </motion.div>

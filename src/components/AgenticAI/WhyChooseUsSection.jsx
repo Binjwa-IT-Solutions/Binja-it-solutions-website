@@ -7,12 +7,12 @@ import { Ear, Wrench, Receipt, Building2, CalendarCheck, Handshake } from "lucid
 const reasons = [
   {
     title: "Listening Comes First",
-    desc: "Before we build anything, we invest time into getting to know everything about your company – its processes, problems, and objectives. Everything that we do revolves around your specific needs.",
+    desc: "Before we build anything, we invest time into getting to know everything about your company – its processes, problems, and objectives. Everything that we do revolves around your specific needs and is tailor-made for them.",
     icon: Ear
   },
   {
-    title: "100% Custom Built",
-    desc: "We don't sell you a finished product and say nothing more. Every single artificial intelligence solution that we develop is bespoke in nature – tailored specifically for your company.",
+    title: "100% Custom Built – Not Pre-made Solution",
+    desc: "We don't sell you a finished product and say nothing more. Every single artificial intelligence solution that we develop is bespoke in nature – tailored specifically for your company and industry.",
     icon: Wrench
   },
   {
@@ -21,17 +21,17 @@ const reasons = [
     icon: Receipt
   },
   {
-    title: "Start-ups to Enterprises",
+    title: "Designed for Start-ups and Enterprises",
     desc: "No matter if you're a startup or an enterprise, our artificial intelligence solutions will work at all scales and develop along with you as your demands change.",
     icon: Building2
   },
   {
-    title: "Guaranteed Delivery",
+    title: "Guaranteed Delivery — Never Miss a Deadline",
     desc: "We plan a clear timeline of completion and we always respect it. With us, you can forget about delays or mysterious absence; you will always have a clear picture of how things progress.",
     icon: CalendarCheck
   },
   {
-    title: "Long-Term AI Partner",
+    title: "We're Your Long-Term AI Partner",
     desc: "We won't leave after delivering a project; we will continue to optimize it together with you as your company evolves and faces new challenges.",
     icon: Handshake
   }
@@ -43,7 +43,7 @@ export default function WhyChooseUsSection() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-6" style={{ color: "var(--text-primary)" }}>
-            Why Businesses Hire Us
+            Why Businesses Hire Us For Their Agentic AI
           </h2>
           <p className="text-lg max-w-2xl mx-auto" style={{ color: "var(--text-muted)" }}>
             We are more than just developers; we are your strategic partners in the age of Agentic AI.

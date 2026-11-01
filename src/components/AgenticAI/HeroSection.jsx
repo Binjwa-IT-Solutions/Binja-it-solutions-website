@@ -32,16 +32,14 @@ export default function HeroSection() {
                     </div>
 
                     <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-neutral-900 leading-tight">
-                        Agentic AI Solutions <br />
+                        Agentic AI Solutions for Smarter, <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-500">
-                            That Work 24/7
+                            Faster Business Automation
                         </span>
                     </h1>
 
                     <p className="text-lg md:text-xl text-neutral-600 mb-10 max-w-xl leading-relaxed">
-                        Automate your business even while you sleep, saving time, cutting
-                        costs & scaling it with intelligent AI agents & automation making
-                        your workload effortless.
+                        Automate your business even while you sleep — save time, cut costs, and scale faster with intelligent Agentic AI that never stops working.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">

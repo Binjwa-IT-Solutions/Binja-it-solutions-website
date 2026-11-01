@@ -46,14 +46,18 @@ export default function WhatsIncluded({ data }) {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-6">What's Included</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-6">{data.heading || "What's Included"}</h2>
           <p className="text-lg theme-text-secondary leading-relaxed">
-            Everything you need for a complete digital solution.
+            {data.subtext || "Everything you need for a complete digital solution."}
           </p>
         </motion.div>
 
+        {data.itemsHeading && (
+          <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-10 text-center">{data.itemsHeading}</h2>
+        )}
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data.map((item, idx) => (
+          {(Array.isArray(data) ? data : data.items || []).map((item, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 30 }}
@@ -72,6 +76,11 @@ export default function WhatsIncluded({ data }) {
                     {getIcon(item.icon)}
                   </div>
                   <h3 className="text-xl font-bold theme-text group-hover:theme-accent transition-colors">{item.title}</h3>
+                  {item.description && (
+                    <p className="mt-3 text-sm theme-text-secondary leading-relaxed group-hover:theme-text transition-colors">
+                      {item.description}
+                    </p>
+                  )}
                 </div>
               </div>
             </motion.div>

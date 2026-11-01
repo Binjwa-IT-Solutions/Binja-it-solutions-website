@@ -18,12 +18,14 @@ export default function FAQSection({ data }) {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-6">Frequently Asked Questions</h2>
-          <p className="text-lg theme-text-secondary">Everything you need to know about our services.</p>
+          <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-6">{data.heading || "Frequently Asked Questions"}</h2>
+          {data.subtext !== false && (
+            <p className="text-lg theme-text-secondary">{data.subtext !== undefined ? data.subtext : "Everything you need to know about our services."}</p>
+          )}
         </motion.div>
 
         <div className="space-y-4">
-          {data.map((faq, idx) => {
+          {(Array.isArray(data) ? data : data.items || []).map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <motion.div

@@ -1,7 +1,13 @@
 export const googleAdsPpcContent = {
+  meta: {
+    title: "Google Ads Management Services | Binjwa IT Solutions",
+    description: "Grow your business with expert Google Ads management services—strategic PPC campaigns, precise targeting & measurable ROI. Book a free demo today."
+  },
   hero: {
-    title: "Google Ads & PPC Campaigns",
-    tagline: "Instant Visibility, Targeted Traffic, Measurable ROI",
+    title: "Google Ads Management Services Designed Around Your Growth Goals",
+    tagline: "Reach ready-to-buy customers the moment they search—with data-driven PPC campaigns built for real growth.",
+    image: "/images/googleads.png",
+    imageClassName: "object-cover object-left opacity-40 md:opacity-70 lg:opacity-90",
     breadcrumbs: [
       { name: "Home", url: "/" },
       { name: "Services", url: "#" },
@@ -10,54 +16,98 @@ export const googleAdsPpcContent = {
     ],
   },
   overview: {
-    description: "We design and manage hyper-targeted Pay-Per-Click (PPC) campaigns on Google and Bing that capture users at the exact moment they are searching for your products or services, maximizing your return on ad spend (ROAS).",
+    description: "With our Google Ads management services, your business can reach people actively searching for services like yours and turn that intent into measurable revenue—not just temporary visibility.",
     benefits: [
-      { title: "Instant Traffic Generation", icon: "Zap" },
-      { title: "High-Intent Audience Targeting", icon: "Search" },
-      { title: "Measurable ROI & ROAS", icon: "LineChart" },
-      { title: "Flexible Budget Control", icon: "Layers" },
-      { title: "A/B Tested Ad Copy", icon: "PenTool" }
+      { title: "Faster Visibility", description: "Get your business in front of potential customers on Google within days instead of waiting months for organic rankings to build.", icon: "Zap" },
+      { title: "Precise Audience Targeting", description: "Reach the right audience based on search intent, location, device, audience behavior, and other relevant targeting signals.", icon: "Search" },
+      { title: "Full Transparency on ROI", description: "Know exactly where your advertising budget is being spent and understand how your campaigns are contributing to business results.", icon: "LineChart" },
+      { title: "Continuous Optimization", description: "We continuously monitor and optimize your ads, keywords, targeting, bids, and landing pages to improve campaign performance.", icon: "Smartphone" },
+      { title: "Flexible Budget Control", description: "Scale your advertising spend according to campaign performance and business goals without being locked into a long-term advertising commitment.", icon: "Layers" }
     ]
   },
-  problemsWeSolve: [
-    { problem: "Wasting thousands of dollars on irrelevant clicks", solution: "Strict negative keyword lists and hyper-specific match types" },
-    { problem: "Getting clicks, but nobody is filling out forms or buying", solution: "Designing high-converting landing pages tailored to specific ad groups" },
-    { problem: "Inability to track which ads actually resulted in sales", solution: "Implementing robust conversion tracking and attribution models" },
-    { problem: "Ads showing up in the wrong geographic locations", solution: "Precision geo-targeting and bid adjustments based on location performance" }
-  ],
-  whatsIncluded: [
-    { title: "Search Network Campaigns", icon: "Search" },
-    { title: "Display Network & Retargeting", icon: "Layers" },
-    { title: "Google Shopping Feed Setup", icon: "Code" },
-    { title: "Conversion Tracking Implementation", icon: "LineChart" },
-    { title: "Ad Copywriting & A/B Testing", icon: "PenTool" },
-    { title: "Landing Page Optimization", icon: "Smartphone" }
-  ],
-  process: [
-    { title: "Keyword & Competitor Research", description: "Finding the exact search terms your customers use and analyzing what your competitors are bidding on." },
-    { title: "Campaign Structure & Setup", description: "Organizing ad groups, writing compelling ad copy, and setting up precise conversion tracking." },
-    { title: "Launch & Bid Management", description: "Taking the campaigns live and actively managing bids to secure the best ad placements at the lowest cost." },
-    { title: "Ongoing Optimization", description: "Continuously pausing poor performers, adding negative keywords, and testing new ad copy to improve ROAS." }
-  ],
-  whyChooseUs: [
-    "Google Partner Certified agency professionals",
-    "Obsessive focus on Cost-Per-Acquisition (CPA), not just clicks",
-    "Expertise in complex conversion tracking (GTM, GA4)",
-    "Transparent reporting showing exactly where every dollar went"
-  ],
-  relatedServices: [
-    { title: "SEO", url: "/services/digital-marketing/seo" },
-    { title: "Analytics & Reporting", url: "/services/digital-marketing/analytics-reporting" },
-    { title: "Social Media Marketing", url: "/services/digital-marketing/social-media-marketing" }
-  ],
-  faqs: [
-    { question: "How much do I need to spend on Google Ads?", answer: "Your ad budget is paid directly to Google, while our fee covers the management and optimization of the account. We recommend a minimum ad spend of $1,000/month to gather enough data for proper optimization, though this varies heavily by industry." },
-    { question: "What is the difference between SEO and PPC?", answer: "SEO focuses on earning free, organic traffic over a period of months. PPC (Google Ads) involves paying for clicks to instantly appear at the top of the search results." },
-    { question: "Do you create the landing pages for the ads?", answer: "Yes! Sending ad traffic to a generic homepage is a massive waste of money. We build specific, high-converting landing pages tailored to the exact offer mentioned in the ad." },
-    { question: "How quickly will I see results?", answer: "PPC is instantaneous. As soon as we launch the campaigns and Google approves the ads, you will start seeing targeted traffic and potential leads on day one." }
-  ],
+  problemsWeSolve: {
+    heading: "Make Your Marketing Budget Work For You",
+    intro: "Traffic won't pay for itself. An effective Google Ads strategy does more than attract visitors to your website—it targets the right visitors and helps turn them into customers. At Binjwa IT Solutions, we combine strategy, precise targeting, and ongoing optimization to make sure your advertising budget is working toward measurable business results, not simply running in the background.",
+    items: [
+      {
+        problem: "Stop Wasting Budget on Clicks That Go Nowhere. A lot of ad spend can disappear on searches that were never likely to convert—people who are browsing rather than looking to buy.",
+        solution: "We build a focused keyword strategy, refine search terms, and continuously update negative keyword lists so your budget is directed toward traffic that has genuine conversion potential."
+      },
+      {
+        problem: "Getting Clicks Is Easy. Getting Customers Is the Hard Part. Driving traffic to a website is only the beginning. Turning those visitors into potential customers or paying clients is where many campaigns struggle.",
+        solution: "We create landing pages for relevant ad groups that align with the same objectives, messaging, and search intent. This creates a seamless journey from ad click to conversion."
+      },
+      {
+        problem: "If You Don't Track It, You Are Only Guessing. Without proper tracking, it becomes difficult to determine which ads, keywords, and campaigns are generating actual business results.",
+        solution: "We implement reliable conversion tracking using GA4 and Google Tag Manager, giving you clear insights into important conversions such as form submissions, phone calls, inquiries, and other actions."
+      },
+      {
+        problem: "Putting Your Budget in Front of the Right People. Poor targeting can quietly reduce campaign performance. Incorrect locations, audiences, and inefficient bidding can quickly increase costs without producing meaningful results.",
+        solution: "We continuously adjust targeting, audience settings, and bids based on actual campaign data rather than following a “set it and forget it” approach."
+      },
+      {
+        problem: "We Don't Just Launch Campaigns and Walk Away. That's one of the biggest differences in how we work. Once a campaign is live, we continue monitoring performance, testing changes, and optimizing keywords, audiences, landing pages, tracking, and bids.",
+        solution: "What that adds up to: Better targeting. Smarter spending. More conversions. Growth you can actually measure."
+      }
+    ]
+  },
+  whatsIncluded: {
+    heading: "What's Included",
+    subtext: "From setup to optimization—everything covered under one roof.",
+    items: [
+      { title: "Search Network Campaigns", description: "Get high-intent traffic using smart keyword strategies based on user search intent.", icon: "Search" },
+      { title: "Display Network & Retargeting", description: "Stay in front of previously engaged visitors and bring them back with effective remarketing campaigns.", icon: "Layers" },
+      { title: "Google Shopping Feed Setup", description: "Optimize product feeds to improve online visibility and help e-commerce retailers and brands reach potential customers.", icon: "Code" },
+      { title: "Conversion Tracking Implementation", description: "Track every important action, including inquiries, calls, form submissions, and purchases generated through your campaigns.", icon: "LineChart" },
+      { title: "Ad Copywriting & A/B Testing", description: "Create and test multiple ad variations regularly to identify the messaging and creatives that deliver the strongest campaign performance.", icon: "PenTool" },
+      { title: "Landing Page Optimization", description: "Optimize landing pages to align with your advertisements, improve the user experience, and support higher conversion rates.", icon: "Smartphone" }
+    ]
+  },
+  process: {
+    heading: "Our Process",
+    subtext: "A step-by-step process designed for measurable campaign success.",
+    items: [
+      { title: "Keyword & Competitor Research", description: "Identify the exact search queries used by your customers and analyze competitors to understand their keyword strategies and advertising approach." },
+      { title: "Campaign Structure & Setup", description: "Structure campaigns and ad groups effectively, create compelling ad copy, and implement reliable conversion tracking." },
+      { title: "Launch & Bid Management", description: "Launch campaigns with the right targeting and continuously manage bids to maintain efficient campaign performance." },
+      { title: "Ongoing Optimization", description: "Continuously identify underperforming ads, refine negative keyword lists, test new ad variations, and optimize campaigns to improve return on ad spend." }
+    ]
+  },
+  whyChooseUs: {
+    heading: "Why Choose Binjwa IT Solutions?",
+    subtext: "We don't just manage campaigns—we focus on managing results. That's why our Google Ads management approach is built around transparency, accuracy, and continuous accountability for your advertising spend.",
+    items: [
+      "Google Partner Certified Professionals: Work with professionals who follow Google Ads best practices and have the expertise to manage and optimize paid search campaigns.",
+      "Focus on Cost Per Acquisition (CPA): We focus on generating meaningful conversions and improving acquisition costs rather than simply maximizing clicks.",
+      "Customized Conversion Tracking: We set up and explain customized conversion tracking using tools such as Google Tag Manager (GTM) and Google Analytics 4 (GA4), so you can clearly understand campaign performance.",
+      "Transparent Reporting: Our reporting clearly shows where your advertising budget is being spent and how your campaigns are performing."
+    ]
+  },
+  relatedServices: {
+    heading: "Related Services",
+    subtext: "Explore other solutions that complement your Google Ads campaigns.",
+    items: [
+      { title: "SEO", description: "Build long-term organic visibility that works alongside and strengthens your paid search campaigns.", url: "/services/digital-marketing/seo" },
+      { title: "Analytics & Reporting", description: "Get actionable insights into channel performance, campaign results, and the data that matters to your business.", url: "/services/digital-marketing/analytics-reporting" },
+      { title: "Social Media Marketing", description: "Build stronger audience engagement and support your paid marketing activities across social platforms.", url: "/services/digital-marketing/social-media-marketing" }
+    ]
+  },
+  faqs: {
+    heading: "Frequently Asked Questions",
+    subtext: "Common questions, answered clearly.",
+    items: [
+      { question: "1. What will be my cost for Google Ads?", answer: "The Google Ads budget varies depending on your industry, level of competition, target audience, and desired outcomes. We help you develop a realistic budget plan based on your business goals and campaign requirements." },
+      { question: "2. Why should I outsource Google Ads management services instead of running campaigns myself?", answer: "Professional Google Ads management saves you time and helps reduce wasted ad spend by combining expertise, continuous testing, data analysis, and ongoing campaign optimization that can be difficult to manage alone." },
+      { question: "3. How can I differentiate between SEO and PPC?", answer: "SEO focuses on building long-term organic visibility, while PPC is designed to generate targeted traffic more quickly through paid advertising. Many businesses use both strategies together to support their overall marketing goals." },
+      { question: "4. Do you provide landing pages for my advertisements?", answer: "Yes. We can create or optimize landing pages based on the specific goal of your advertisement, ensuring that the page aligns with your ad messaging and supports conversions." },
+      { question: "5. How soon will the results appear?", answer: "A search advertising campaign can start generating traffic within a few days. However, campaigns typically need at least one to two months of data, testing, and optimization to reach more consistent performance." },
+      { question: "6. How do you choose the right keywords to target?", answer: "We conduct detailed keyword research and competitor analysis to identify relevant, high-intent keywords. The focus is not only on search volume but also on the likelihood that a keyword can attract users who are ready to take action." },
+      { question: "7. Can you help if my account is not generating satisfactory results already?", answer: "Absolutely. We begin with a comprehensive account audit to identify the reasons behind poor performance. Based on the audit findings, we develop a focused strategy to improve targeting, campaign structure, tracking, and overall performance." }
+    ]
+  },
   finalCta: {
     heading: "Ready to Capture High-Intent Leads?",
     subtext: "Let's build a profitable Google Ads campaign that scales your revenue.",
+    ctaText: "Book Your Demo",
   }
 };

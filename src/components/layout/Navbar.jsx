@@ -40,16 +40,18 @@ const Navbar = ({ handleShowBanner, hasBanner }) => {
         { name: "About Us", href: "/about" },
         {
             name: "Services",
+            href: "/services",
             isMega: true,
             isServicesMega: true,
             subLinks: servicesData.map(service => ({
                 name: service.name,
-                href: `/services/${service.slug}`,
+                href: service.slug === 'agentic-ai-solutions' ? '/ai-automation' : `/services/${service.slug}`,
                 subServices: service.subServices
             })),
         },
         {
             name: "Industries",
+            href: "/industries",
             isMega: true,
             isIndustriesMega: true,
             subLinks: industriesData.map(industry => ({ name: industry.name, href: `/industries/${industry.slug}` })),
@@ -71,32 +73,7 @@ const Navbar = ({ handleShowBanner, hasBanner }) => {
         setDesktopActiveDropdown(null);
     }, [pathname]);
 
-    const NavLink = ({ link }) => {
-        const isActive = pathname === link.href ||
-            (link.subLinks && link.subLinks.some(s => pathname === s.href || pathname.startsWith(s.href + "/")));
 
-        return (
-            <Link href={link.href || "#"}
-                className={`relative flex items-center gap-1 text-sm font-medium transition-colors duration-200 h-full py-2
-          hover:text-orange-500 group
-          ${isActive ? "text-orange-500" : ""}
-          ${!isActive && useWhiteText ? "text-white/90" : ""}
-          ${!isActive && !useWhiteText ? "theme-text" : ""}
-        `}
-            >
-                {link.name}
-                {link.subLinks && !link.isMega && <ChevronDown size={16} className={`transition-transform duration-300 ${desktopActiveDropdown === link.name ? 'rotate-180' : ''}`} />}
-                {link.isMega && <ChevronDown size={16} className={`transition-transform duration-300 ${desktopActiveDropdown === link.name ? 'rotate-180' : ''}`} />}
-
-                {/* Animated active/hover underline */}
-                <div 
-                    className={`absolute bottom-0 left-0 right-0 h-[2px] bg-orange-500 rounded-full transition-all duration-300 origin-center 
-                        ${isActive ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100"}
-                    `} 
-                />
-            </Link>
-        );
-    };
 
     return (
         <motion.nav
@@ -136,14 +113,35 @@ const Navbar = ({ handleShowBanner, hasBanner }) => {
                                 onMouseEnter={() => setDesktopActiveDropdown(link.name)}
                                 onMouseLeave={() => setDesktopActiveDropdown(null)}
                                 onClick={(e) => {
-                                    if (link.isServicesMega || link.isIndustriesMega || link.subLinks) {
-                                        e.preventDefault();
-                                    }
+                                    // Removed e.preventDefault() so users can navigate to /services and /industries
                                 }}
                             >
-                                <div id={link.isServicesMega ? "nav-services-link" : (link.isIndustriesMega ? "nav-industries-link" : "")} className="flex items-center h-full cursor-pointer">
-                                    <NavLink link={link} />
-                                </div>
+                                <Link 
+                                    id={link.isServicesMega ? "nav-services-link" : (link.isIndustriesMega ? "nav-industries-link" : "")}
+                                    href={link.href || "#"}
+                                    onClick={(e) => {
+                                        if (link.isMega || link.subLinks) {
+                                            // Allow navigation but also let user interact with dropdown
+                                        }
+                                    }}
+                                    className={`relative flex items-center gap-1 text-sm font-medium transition-colors duration-200 h-full px-2 py-2 cursor-pointer
+                                      hover:text-orange-500 group
+                                      ${pathname === link.href || (link.subLinks && link.subLinks.some(s => pathname === s.href || pathname.startsWith(s.href + "/"))) ? "text-orange-500" : ""}
+                                      ${!(pathname === link.href || (link.subLinks && link.subLinks.some(s => pathname === s.href || pathname.startsWith(s.href + "/")))) && useWhiteText ? "text-white/90" : ""}
+                                      ${!(pathname === link.href || (link.subLinks && link.subLinks.some(s => pathname === s.href || pathname.startsWith(s.href + "/")))) && !useWhiteText ? "theme-text" : ""}
+                                    `}
+                                >
+                                    {link.name}
+                                    {link.subLinks && !link.isMega && <ChevronDown size={16} className={`transition-transform duration-300 ${desktopActiveDropdown === link.name ? 'rotate-180' : ''}`} />}
+                                    {link.isMega && <ChevronDown size={16} className={`transition-transform duration-300 ${desktopActiveDropdown === link.name ? 'rotate-180' : ''}`} />}
+
+                                    {/* Animated active/hover underline */}
+                                    <div 
+                                        className={`absolute bottom-0 left-0 right-0 h-[2px] bg-orange-500 rounded-full transition-all duration-300 origin-center 
+                                            ${pathname === link.href || (link.subLinks && link.subLinks.some(s => pathname === s.href || pathname.startsWith(s.href + "/"))) ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100"}
+                                        `} 
+                                    />
+                                </Link>
                                 
                                 {/* Standard SubLinks */}
                                 {link.subLinks && !link.isMega && (
@@ -226,6 +224,12 @@ const Navbar = ({ handleShowBanner, hasBanner }) => {
                             </button>
                         )}
 
+                        <Link href="/project-nexus"
+                            className={`flex items-center gap-2 px-5 py-2 rounded-full font-semibold text-sm transition-all duration-200 border-2 ${useWhiteText ? "border-white/50 text-white hover:border-white" : "border-neutral-200 text-neutral-800 hover:border-neutral-400"}`}
+                        >
+                            Project NEXUS
+                        </Link>
+
                         <Link href="/contact"
                             className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 shadow-md hover:shadow-[0_4px_20px_rgba(249,115,22,0.4)] hover:-translate-y-0.5"
                         >
@@ -267,17 +271,27 @@ const Navbar = ({ handleShowBanner, hasBanner }) => {
                             {navLinks.map((link) =>
                                 link.subLinks ? (
                                     <div key={link.name}>
-                                        <button
-                                            onClick={() => setMobileActiveDropdown(mobileActiveDropdown === link.name ? null : link.name)}
+                                        <div
                                             className="w-full flex justify-between items-center py-3 px-4 text-base font-medium rounded-lg transition-colors"
                                             style={{ color: isSmmPage ? "#ffffff" : "var(--text-primary)", backgroundColor: mobileActiveDropdown === link.name ? (isSmmPage ? "#333" : "var(--bg-alt)") : "transparent" }}
                                         >
-                                            {link.name}
-                                            <ChevronDown
-                                                size={20}
-                                                className={`transition-transform duration-300 ${mobileActiveDropdown === link.name ? "rotate-180 text-orange-500" : ""}`}
-                                            />
-                                        </button>
+                                            <Link 
+                                                href={link.href || "#"} 
+                                                onClick={() => setIsOpen(false)}
+                                                className="flex-1"
+                                            >
+                                                {link.name}
+                                            </Link>
+                                            <button 
+                                                onClick={() => setMobileActiveDropdown(mobileActiveDropdown === link.name ? null : link.name)}
+                                                className="p-1"
+                                            >
+                                                <ChevronDown
+                                                    size={20}
+                                                    className={`transition-transform duration-300 ${mobileActiveDropdown === link.name ? "rotate-180 text-orange-500" : ""}`}
+                                                />
+                                            </button>
+                                        </div>
                                         <AnimatePresence>
                                             {mobileActiveDropdown === link.name && (
                                                 <motion.div
@@ -330,10 +344,17 @@ const Navbar = ({ handleShowBanner, hasBanner }) => {
                                 )
                             )}
 
-                            <div className="flex items-center gap-4 px-4 pt-4">
+                            <div className="flex flex-col gap-3 px-4 pt-4">
+                                <Link href="/project-nexus"
+                                    onClick={() => setIsOpen(false)}
+                                    className="w-full text-center border-2 border-neutral-300 text-neutral-800 px-6 py-3 rounded-xl text-base font-semibold hover:border-neutral-400 transition-colors"
+                                    style={isSmmPage ? { borderColor: "#444", color: "#e5e5e5" } : {}}
+                                >
+                                    Project NEXUS
+                                </Link>
                                 <Link href="/contact"
                                     onClick={() => setIsOpen(false)}
-                                    className="flex-1 text-center bg-orange-500 text-white px-6 py-3 rounded-xl text-base font-semibold shadow-[0_4px_15px_rgba(249,115,22,0.3)] hover:bg-orange-600 transition-colors"
+                                    className="w-full text-center bg-orange-500 text-white px-6 py-3 rounded-xl text-base font-semibold shadow-[0_4px_15px_rgba(249,115,22,0.3)] hover:bg-orange-600 transition-colors"
                                 >
                                     Book Your Demo
                                 </Link>

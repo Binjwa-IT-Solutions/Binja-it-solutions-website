@@ -10,6 +10,7 @@ import WhyChooseUs from "../../../../components/services/sub-service/WhyChooseUs
 import RelatedServices from "../../../../components/services/sub-service/RelatedServices";
 import FAQSection from "../../../../components/services/sub-service/FAQSection";
 import FinalCTA from "../../../../components/services/sub-service/FinalCTA";
+import AIChatbotCTA from "../../../../components/services/sub-service/AIChatbotCTA";
 
 // Static path generation for SEO
 export async function generateStaticParams() {
@@ -32,8 +33,8 @@ export async function generateMetadata({ params }) {
 
   if (pageData) {
     return {
-      title: `${pageData.hero.title} | Binjwa IT Solutions`,
-      description: pageData.hero.tagline,
+      title: pageData.meta?.title || `${pageData.hero.title} | Binjwa IT Solutions`,
+      description: pageData.meta?.description || pageData.hero.tagline,
     };
   }
 
@@ -68,7 +69,11 @@ export default async function SubServicePage({ params }) {
       <WhyChooseUs data={pageData.whyChooseUs} />
       <RelatedServices data={pageData.relatedServices} />
       <FAQSection data={pageData.faqs} />
-      <FinalCTA data={pageData.finalCta} />
+      {lowerSubservice === "ai-chatbots-virtual-assistants" ? (
+        <AIChatbotCTA data={pageData.finalCta} />
+      ) : (
+        <FinalCTA data={pageData.finalCta} />
+      )}
     </main>
   );
 }

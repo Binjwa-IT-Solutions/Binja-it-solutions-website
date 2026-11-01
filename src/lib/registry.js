@@ -9,6 +9,7 @@ import { websiteMaintenanceContent } from "../data/sub-services-content/website-
 import { progressiveWebAppsContent } from "../data/sub-services-content/progressive-web-apps.js";
 import { apiDevelopmentContent } from "../data/sub-services-content/api-development.js";
 import { cmsDevelopmentContent } from "../data/sub-services-content/cms-development.js";
+import { devopsSupportContent } from "../data/sub-services-content/devops-support.js";
 
 // Agentic AI Imports
 import { aiChatbotsContent } from "../data/sub-services-content/ai-chatbots-virtual-assistants.js";
@@ -33,6 +34,9 @@ import { brandingContent } from "../data/sub-services-content/branding-graphic-d
 import { videoMarketingContent } from "../data/sub-services-content/video-marketing-editing.js";
 import { onlineReputationContent } from "../data/sub-services-content/online-reputation-management.js";
 import { analyticsReportingContent } from "../data/sub-services-content/analytics-reporting.js";
+import { performanceMarketingContent } from "../data/sub-services-content/performance-marketing.js";
+import { linkedinOptimizationContent } from "../data/sub-services-content/linkedin-optimization.js";
+import { ugcVideoServicesContent } from "../data/sub-services-content/ugc-video-services.js";
 
 // Centralized registry mapping slugs to their content
 export const contentRegistry = {
@@ -48,6 +52,7 @@ export const contentRegistry = {
     "progressive-web-apps": progressiveWebAppsContent,
     "api-development": apiDevelopmentContent,
     "cms-development": cmsDevelopmentContent,
+    "devops-support": devopsSupportContent,
   },
   "agentic-ai-solutions": {
     "ai-chatbots-virtual-assistants": aiChatbotsContent,
@@ -72,5 +77,8 @@ export const contentRegistry = {
     "video-marketing-editing": videoMarketingContent,
     "online-reputation-management": onlineReputationContent,
     "analytics-reporting": analyticsReportingContent,
+    "performance-marketing": performanceMarketingContent,
+    "linkedin-optimization": linkedinOptimizationContent,
+    "ugc-video-services": ugcVideoServicesContent,
   }
 };

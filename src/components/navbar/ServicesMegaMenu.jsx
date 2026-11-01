@@ -113,7 +113,7 @@ export default function ServicesMegaMenu({ onClose }) {
                 }}
                 className="flex flex-col"
               >
-                <Link href={`/services/${service.slug}`} className="mb-4 inline-block w-fit focus:outline-none group" onClick={onClose}>
+                <Link href={service.slug === 'agentic-ai-solutions' ? '/ai-automation' : `/services/${service.slug}`} className="mb-4 inline-block w-fit focus:outline-none group">
                   <h3 className="text-lg font-semibold text-gray-100 transition-colors group-hover:text-orange-500">
                     {service.name}
                   </h3>
@@ -126,7 +126,6 @@ export default function ServicesMegaMenu({ onClose }) {
                       <Link
                         href={`/services/${service.slug}/${subService.slug}`}
                         className="text-[14px] font-medium text-gray-400 hover:text-orange-400 transition-colors duration-200 focus:outline-none block"
-                        onClick={onClose}
                       >
                         {subService.name}
                       </Link>

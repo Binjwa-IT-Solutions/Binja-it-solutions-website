@@ -1,11 +1,9 @@
 import { notifyError } from './request';
+import { API_BASE_URL } from '../config/api';
 
-// The contact endpoint is this site's own serverless function (api/index.js,
-// routed by the /api/(.*) rewrite in vercel.json), not the HRMS backend, so it
-// is addressed same-origin rather than through API_BASE_URL.
 export const submitContactForm = async (formData) => {
     try {
-        const response = await fetch(`/api/contact`, {
+        const response = await fetch(`${API_BASE_URL}/api/contact`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

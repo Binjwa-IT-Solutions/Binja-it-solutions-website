@@ -19,12 +19,14 @@ export default function WhyChooseUs({ data }) {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-6">Why Choose Binjwa IT Solutions?</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-6">
+              {data.heading || "Why Choose Binjwa IT Solutions?"}
+            </h2>
             <p className="text-lg theme-text-secondary leading-relaxed mb-8">
-              We don't just build software; we build partnerships. Our commitment to quality, transparency, and innovation ensures your project is in the best hands.
+              {data.subtext || "We don't just build software; we build partnerships. Our commitment to quality, transparency, and innovation ensures your project is in the best hands."}
             </p>
             <ul className="space-y-4">
-              {data.map((usp, idx) => (
+              {(Array.isArray(data) ? data : data.items || []).map((usp, idx) => (
                 <li key={idx} className="flex items-center gap-3 text-lg font-medium theme-text">
                   <CheckCircle className="theme-accent shrink-0" size={24} />
                   {usp}

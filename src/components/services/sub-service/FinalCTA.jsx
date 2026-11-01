@@ -29,7 +29,7 @@ export default function FinalCTA({ data }) {
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/contact" className="inline-flex items-center justify-center h-14 px-10 text-lg font-semibold theme-accent-bg hover:brightness-110 text-white rounded-full transition-all w-full sm:w-auto shadow-lg hover:shadow-[0_4px_20px_color-mix(in_srgb,var(--accent)_40%,transparent)] hover:-translate-y-0.5">
-              Book Your Demo
+              {data.ctaText || "Book Your Demo"}
             </Link>
             <Link href="/contact" className="inline-flex items-center justify-center h-14 px-10 text-lg font-semibold bg-transparent hover:theme-bg-alt theme-text border-2 theme-border rounded-full transition-all w-full sm:w-auto hover:-translate-y-0.5">
               Contact Us

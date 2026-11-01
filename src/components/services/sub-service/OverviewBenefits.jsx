@@ -45,11 +45,17 @@ export default function OverviewBenefits({ data }) {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-6">Overview & Benefits</h2>
-          <p className="text-lg theme-text-secondary leading-relaxed">
+          <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-6">
+            {data.heading || "Overview & Benefits"}
+          </h2>
+          <p className="text-lg theme-text-secondary leading-relaxed whitespace-pre-line">
             {data.description}
           </p>
         </motion.div>
+
+        {data.benefitsHeading && (
+          <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-10 text-center">{data.benefitsHeading}</h2>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {data.benefits.map((benefit, idx) => (
@@ -70,7 +76,12 @@ export default function OverviewBenefits({ data }) {
                   <div className="mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full" style={{ backgroundColor: 'color-mix(in srgb, var(--accent) 10%, transparent)' }}>
                     {getIcon(benefit.icon)}
                   </div>
-                  <h3 className="text-lg font-bold theme-text">{benefit.title}</h3>
+                  <h3 className="text-lg font-bold theme-text mb-3">{benefit.title}</h3>
+                  {benefit.description && (
+                    <p className="text-sm theme-text-secondary leading-relaxed">
+                      {benefit.description}
+                    </p>
+                  )}
                 </div>
               </div>
             </motion.div>

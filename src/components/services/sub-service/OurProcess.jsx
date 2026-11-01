@@ -16,9 +16,9 @@ export default function OurProcess({ data }) {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-20"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-6">Our Process</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-6">{data.heading || "Our Process"}</h2>
           <p className="text-lg theme-text-secondary leading-relaxed">
-            A proven methodology to deliver results on time and within budget.
+            {data.subtext || "A proven methodology to deliver results on time and within budget."}
           </p>
         </motion.div>
 
@@ -27,7 +27,7 @@ export default function OurProcess({ data }) {
           <div className="hidden lg:block absolute top-1/2 left-0 w-full h-1 theme-border -translate-y-1/2 border-t-2 border-dashed" />
           
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {data.map((step, idx) => (
+            {(Array.isArray(data) ? data : data.items || []).map((step, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 30 }}

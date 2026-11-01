@@ -8,6 +8,10 @@ export default function ProblemsWeSolve({ data }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const items = Array.isArray(data) ? data : data?.items || [];
+  const heading = !Array.isArray(data) && data?.heading ? data.heading : "Problems We Solve";
+  const intro = !Array.isArray(data) && data?.intro ? data.intro : "Overcoming the digital hurdles holding your business back.";
+
   const handleMouseMove = (e, index) => {
     const card = document.getElementById(`problem-card-${index}`);
     if (!card) return;
@@ -25,6 +29,8 @@ export default function ProblemsWeSolve({ data }) {
     card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
   };
 
+  if (!items || items.length === 0) return null;
+
   return (
     <section className="py-24 theme-bg-secondary" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
@@ -34,14 +40,14 @@ export default function ProblemsWeSolve({ data }) {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-6">Problems We Solve</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-6">{heading}</h2>
           <p className="text-lg theme-text-secondary leading-relaxed">
-            Overcoming the digital hurdles holding your business back.
+            {intro}
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {data.map((item, idx) => (
+          {items.map((item, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, scale: 0.95 }}

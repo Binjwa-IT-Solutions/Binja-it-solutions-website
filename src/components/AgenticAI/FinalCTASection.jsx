@@ -71,7 +71,7 @@ export default function FinalCTASection() {
                         variants={itemVariants}
                         className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight max-w-3xl"
                         style={{ color: "var(--text-primary)" }}>
-                        Ready to <span style={{ color: "var(--accent)" }}>Automate</span> Your <span style={{ color: "var(--accent)" }}>Business</span>?
+                        Are You Ready to <span style={{ color: "var(--accent)" }}>Automate</span> Your <span style={{ color: "var(--accent)" }}>Business</span>?
                     </motion.h2>
 
                     <motion.p
@@ -79,8 +79,7 @@ export default function FinalCTASection() {
                         className="text-lg md:text-xl mb-12 max-w-2xl leading-relaxed"
                         style={{ color: "var(--text-muted)" }}
                     >
-
-                        Save yourself time by leaving tasks to AI, which can do them faster, better, and more affordably. Let's create something that suits your business, even when you're sleeping.
+                        Save yourself time by leaving tasks to AI, which can do them faster, better and more affordably. Let's create something that suits your business, even when you're sleeping.
                     </motion.p>
 
                     <motion.div

@@ -5,7 +5,7 @@ export const voiceAiBotsContent = {
     breadcrumbs: [
       { name: "Home", url: "/" },
       { name: "Services", url: "#" },
-      { name: "Agentic AI Solutions", url: "/services/agentic-ai-solutions" },
+      { name: "Agentic AI Solutions", url: "/ai-automation" },
       { name: "Voice AI", url: "/services/agentic-ai-solutions/voice-ai-bots" }
     ],
   },

@@ -26,6 +26,12 @@ export default function RelatedServices({ data }) {
     card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
   };
 
+  const items = Array.isArray(data) ? data : data?.items || [];
+  const heading = !Array.isArray(data) && data?.heading ? data.heading : "Related Services";
+  const subtext = !Array.isArray(data) && data?.subtext ? data.subtext : "Explore other solutions that complement your project.";
+
+  if (!items || items.length === 0) return null;
+
   return (
     <section className="py-24 theme-bg-secondary" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
@@ -36,8 +42,8 @@ export default function RelatedServices({ data }) {
           className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16"
         >
           <div>
-            <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-4">Related Services</h2>
-            <p className="text-lg theme-text-secondary">Explore other solutions that complement your project.</p>
+            <h2 className="text-3xl lg:text-4xl font-bold theme-text mb-4">{heading}</h2>
+            <p className="text-lg theme-text-secondary">{subtext}</p>
           </div>
           <Link href="/services/web-app-development" className="inline-flex items-center gap-2 theme-accent font-semibold hover:brightness-110 transition-colors group">
             View All Services
@@ -46,7 +52,7 @@ export default function RelatedServices({ data }) {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data.map((service, idx) => (
+          {items.map((service, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 30 }}
@@ -55,7 +61,7 @@ export default function RelatedServices({ data }) {
               style={{ perspective: "1000px" }}
               className="block outline-none h-full"
             >
-              <Link href={service.url} className="block outline-none h-full focus:outline-none">
+              <Link href={service.url || "#"} className="block outline-none h-full focus:outline-none">
                 <div
                   id={`related-card-${idx}`}
                   onMouseMove={(e) => handleMouseMove(e, idx)}
@@ -67,6 +73,11 @@ export default function RelatedServices({ data }) {
                     <h3 className="text-xl font-bold theme-text mb-4 group-hover:theme-accent transition-colors">
                       {service.title}
                     </h3>
+                    {service.description && (
+                      <p className="text-sm theme-text-secondary leading-relaxed group-hover:theme-text transition-colors">
+                        {service.description}
+                      </p>
+                    )}
                   </div>
                   <div style={{ transform: "translateZ(20px)" }} className="mt-8 flex justify-end">
                     <div className="w-10 h-10 rounded-full theme-bg-alt flex items-center justify-center group-hover:theme-accent-bg group-hover:text-white transition-colors theme-text-secondary">
