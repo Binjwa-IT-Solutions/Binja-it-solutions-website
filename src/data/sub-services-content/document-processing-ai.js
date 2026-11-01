@@ -5,7 +5,11 @@ export const documentProcessingAiContent = {
     breadcrumbs: [
       { name: "Home", url: "/" },
       { name: "Services", url: "#" },
+<<<<<<< HEAD
       { name: "Agentic AI Solutions", url: "/ai-automation" },
+=======
+      { name: "Agentic AI Solutions", url: "/ai-solutions" },
+>>>>>>> f57c552f8cb7557568234b6465d422184ed7152c
       { name: "Document Processing AI", url: "/services/agentic-ai-solutions/document-processing-ai" }
     ],
   },

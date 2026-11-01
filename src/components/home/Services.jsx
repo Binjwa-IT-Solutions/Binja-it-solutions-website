@@ -21,7 +21,11 @@ const servicesData = {
     {
       title: "Agentic AI",
       desc: "Innovative AI agents designed to automate workflows and optimize operations.",
+<<<<<<< HEAD
       path: "/ai-automation",
+=======
+      path: "/ai-solutions",
+>>>>>>> f57c552f8cb7557568234b6465d422184ed7152c
       image: "/images/hero-robot.png"
     },
     {

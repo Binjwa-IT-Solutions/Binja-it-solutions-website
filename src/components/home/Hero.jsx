@@ -3,6 +3,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
 import Link from "next/link";
+<<<<<<< HEAD
+=======
+
+>>>>>>> f57c552f8cb7557568234b6465d422184ed7152c
 const heroData = {
   videoSrc: "/mainVideo.mp4",
 };
@@ -248,7 +252,11 @@ const Hero = () => {
   return (
     <div 
       ref={containerRef}
+<<<<<<< HEAD
       className="relative w-full h-screen min-h-[800px] flex flex-col justify-center text-white overflow-hidden pt-20"
+=======
+      className="relative w-full h-screen min-h-[800px] flex flex-col justify-center text-white overflow-hidden pt-20 perspective-[1000px]"
+>>>>>>> f57c552f8cb7557568234b6465d422184ed7152c
     >
       {/* Layer 1: Background Video with Parallax */}
       <motion.div style={{ x: bgX, y: bgY }} className="absolute -inset-4 z-0 pointer-events-none">
@@ -357,7 +365,11 @@ const Hero = () => {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="group md:absolute md:top-[15%] md:left-[10%] lg:left-[15%] pointer-events-auto"
           >
+<<<<<<< HEAD
             <TiltCard href="/ai-automation" className="group w-full md:w-64 bg-[#0f1629]/60 backdrop-blur-xl border border-white/10 hover:border-orange-500/50 rounded-2xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_32px_rgba(249,115,22,0.2)] cursor-pointer transition-colors duration-300 relative overflow-hidden">
+=======
+            <TiltCard href="/ai-solutions" className="group w-full md:w-64 bg-[#0f1629]/60 backdrop-blur-xl border border-white/10 hover:border-orange-500/50 rounded-2xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_32px_rgba(249,115,22,0.2)] cursor-pointer transition-colors duration-300 relative overflow-hidden">
+>>>>>>> f57c552f8cb7557568234b6465d422184ed7152c
               <div className="flex justify-between items-center mb-4 relative z-10">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
