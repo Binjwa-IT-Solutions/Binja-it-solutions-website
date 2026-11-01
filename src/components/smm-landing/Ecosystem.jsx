@@ -98,7 +98,7 @@ export function LandingEcosystem() {
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
-            <span className="font-bold text-[#F16522] text-3xl">binj-AI</span>
+            <span className="font-bold text-[#F16522] text-xl md:text-2xl text-center">Binj SMM</span>
           </motion.div>
         </div>
 
@@ -110,8 +110,8 @@ export function LandingEcosystem() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white"
           >
-            One Platform.<br />
-            <span className="text-[#F16522]">All Your Social Media.</span>
+            All Your Social Media <br />
+            <span className="text-[#F16522]">in One Place.</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -120,7 +120,7 @@ export function LandingEcosystem() {
             transition={{ delay: 0.1 }}
             className="text-lg text-gray-300 max-w-xl mx-auto lg:mx-0"
           >
-            Seamlessly manage, schedule, and analyze your content across the entire social media ecosystem from a single powerful dashboard.
+            Publish, engage, and analyze performance across Instagram, LinkedIn, Facebook, X, TikTok, and WhatsApp without switching between disconnected apps.
           </motion.p>
         </div>
 

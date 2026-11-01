@@ -14,13 +14,13 @@ if (typeof window !== "undefined") {
 const statsData = {
     topBadge: "OUR JOURNEY. OUR IMPACT.",
     headline: "Our Achievements",
-    subtitle: "Numbers that reflect our commitment, the trust of our clients, and the journey we continue to build every day.",
+    subtitle: "Real numbers that reflect our ongoing journey, dedication to our clients, and reliable service.",
     stats: [
-        { icon: Briefcase, value: 30, suffix: "+", label: "Projects Delivered", description: "Successfully delivered tailored solutions for various clients." },
-        { icon: Smile, value: 50, suffix: "+", label: "Happy Clients", description: "Building strong relationships across industries." },
-        { icon: Calendar, value: 2025, prefix: "Since ", label: "In Business", description: "Continuously innovating and growing." },
-        { icon: Star, value: 98, suffix: "%", label: "Client Satisfaction", description: "Our commitment to excellence is reflected in our client feedback." },
-        { icon: Headphones, value: 24, suffix: "/7", label: "Support Available", description: "We provide round-the-clock support for our partners." },
+        { icon: Calendar, value: "2025", prefix: "Since ", label: "In Business", description: "Delivering modern software, web, and AI solutions." },
+        { icon: Briefcase, value: 7, suffix: "+", label: "Projects Delivered", description: "Successfully delivered tailored solutions for our clients." },
+        { icon: Smile, value: 8, suffix: "+", label: "Happy Clients", description: "Building transparent and long-lasting partnerships." },
+        { icon: Headphones, value: 24, suffix: "/7", label: "Support Available", description: "Round-the-clock availability and prompt technical assistance." },
+        { icon: Star, value: 100, suffix: "%", label: "Client Dedication", description: "Focused on reliable delivery and authentic client satisfaction." },
     ],
 };
 
@@ -28,8 +28,8 @@ const AnimatedNumber = ({ value, prefix = "", suffix = "", label }) => {
     const numRef = useRef(null);
     const hasAnimatedRef = useRef(false);
     
-    // Do not treat "In Business" or "Support Available" as counters
-    const isCounter = label !== "In Business" && label !== "Support Available";
+    // Do not treat non-numbers, "In Business", or "Support Available" as counters
+    const isCounter = typeof value === "number" && label !== "In Business" && label !== "Support Available";
 
     useEffect(() => {
         if (!isCounter) return;
