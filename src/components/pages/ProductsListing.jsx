@@ -16,7 +16,7 @@ const ProductsListing = () => {
 
   const products = [
     {
-      name: "Agentic AI",
+      name: "BinjAi",
       description: "Intelligent AI-powered automation that learns and adapts to your business processes. Automate complex workflows with autonomous agents.",
       features: [
         "AI-powered autonomous task execution",
@@ -25,11 +25,11 @@ const ProductsListing = () => {
         "Integration with existing tools",
         "Advanced analytics and reporting"
       ],
-      detailsLink: "/products/AgenticAI",
+      detailsLink: "/products/binjai",
       image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80"
     },
     {
-      name: "Social Media Management",
+      name: "BinjSMM",
       description: "Complete social media management platform for scheduling, analytics, and engagement. Manage all your social channels from one dashboard.",
       features: [
         "Multi-channel scheduling and publishing",

@@ -37,6 +37,7 @@ const hasBanner = false; // Adjust based on actual files
  */
 export default function LayoutClient({ children }) {
   const pathname = usePathname();
+  const isBinjAiPage = pathname === "/products/binjai" || pathname === "/products/new-page";
   const [showBanner, setShowBanner] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -61,7 +62,7 @@ export default function LayoutClient({ children }) {
       />
       <Banner showBanner={showBanner} handleCloseBanner={handleCloseBanner} bannerImageUrl={bannerImageUrl} />
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="transition-colors duration-500 relative" style={{ backgroundColor: "var(--bg-primary)" }}>
+      <div className="transition-colors duration-500 relative" style={{ backgroundColor: isBinjAiPage ? "#050505" : "var(--bg-primary)" }}>
         <Navbar handleShowBanner={handleShowBanner} hasBanner={hasBanner} />
         <main>
           {children}

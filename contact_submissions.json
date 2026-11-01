@@ -1,0 +1,107 @@
+[
+  {
+    "id": "BINJ-483955",
+    "name": "Tarun Demo",
+    "email": "tarun@example.com",
+    "phone": "6265914175",
+    "message": "[Request generated from BinjAI project]\nPrimary Industry: EdTech\nTesting",
+    "receivedAt": "2026-11-01T14:48:03.955Z"
+  },
+  {
+    "id": "BINJ-368096",
+    "name": "tarun",
+    "email": "tarun.binjwaitsolutions@gmail.com",
+    "phone": "6265914175",
+    "message": "[Request generated from BinjAI project]\nPrimary Industry / Use Case: Real Estate\nInquiry: Requested a product demo and consultation for tarun (6265914175).",
+    "receivedAt": "2026-11-01T15:19:28.096Z"
+  },
+  {
+    "id": "BINJ-419904",
+    "name": "tarun",
+    "email": "tearun@gmail.com",
+    "phone": "1234567891",
+    "message": "ajdhfg",
+    "receivedAt": "2026-11-01T15:20:19.904Z"
+  },
+  {
+    "id": "BITS024",
+    "crmLeadCode": "BITS024",
+    "name": "CRM Live Test",
+    "email": "testcrm@binjwa.com",
+    "phone": "9876543210",
+    "message": "[Request generated from BinjAI project] Live CRM Integration Test",
+    "receivedAt": "2026-11-01T15:29:30.717Z"
+  },
+  {
+    "id": "BITS025",
+    "crmLeadCode": "BITS025",
+    "name": "Contact Page Visitor",
+    "email": "visitor@company.com",
+    "phone": "9876543211",
+    "message": "Hello, I want to inquire about web services",
+    "receivedAt": "2026-11-01T15:29:55.273Z"
+  },
+  {
+    "id": "BITS026",
+    "crmLeadCode": "BITS026",
+    "name": "tarun",
+    "email": "TARUN@TESTINF.COM",
+    "phone": "6265914175",
+    "message": "[Request generated from BinjAI project]\nPrimary Industry / Use Case: FinTech\nInquiry: Requested a product demo and consultation for tarun (6265914175).",
+    "receivedAt": "2026-11-01T15:31:03.993Z"
+  },
+  {
+    "id": "BITS027",
+    "crmLeadCode": "BITS027",
+    "name": "tarun",
+    "email": "TARUN@TESTINF.COM",
+    "phone": "6265914175",
+    "message": "[Request generated from BinjAI project]\nPrimary Industry / Use Case: FinTech\nInquiry: Requested a product demo and consultation for tarun (6265914175).",
+    "receivedAt": "2026-11-01T15:31:50.516Z"
+  },
+  {
+    "id": "BITS028",
+    "crmLeadCode": "BITS028",
+    "name": "tarunasdasd",
+    "email": "TARUN@TESTINF.COM",
+    "phone": "6265914175",
+    "message": "[Request generated from BinjAI project]\nPrimary Industry / Use Case: FinTech\nInquiry: Requested a product demo and consultation for tarunasdasd (6265914175).",
+    "receivedAt": "2026-11-01T15:32:17.634Z"
+  },
+  {
+    "id": "BITS029",
+    "crmLeadCode": "BITS029",
+    "name": "BinjAI Website Visitor",
+    "email": "lead@binjai.com",
+    "phone": "xcvnbkdjfsdf",
+    "message": "[Request generated from BinjAI project - Final CTA Section]\nContact: xcvnbkdjfsdf\nInterested in deploying BinjAI VoiceOS pipeline.",
+    "receivedAt": "2026-11-01T15:33:14.535Z"
+  },
+  {
+    "id": "BITS030",
+    "crmLeadCode": "BITS030",
+    "name": "BinjAI Website Visitor",
+    "email": "lead@binjai.com",
+    "phone": "dfbnfghfghh",
+    "message": "[Request generated from BinjAI project - Final CTA Section]\nContact: dfbnfghfghh\nInterested in deploying BinjAI VoiceOS pipeline.",
+    "receivedAt": "2026-11-01T15:34:33.382Z"
+  },
+  {
+    "id": "BITS032",
+    "crmLeadCode": "BITS032",
+    "name": "BinjAI Website Visitor",
+    "email": "visitor@company.com",
+    "phone": "0000",
+    "message": "[Request generated from BinjAI project - Final CTA Section]\nContact Input: visitor@company.com\nInquiry: Expressed interest in BinjAI",
+    "receivedAt": "2026-11-01T15:35:50.151Z"
+  },
+  {
+    "id": "BITS033",
+    "crmLeadCode": "BITS033",
+    "name": "tarun",
+    "email": "ugsedf@kujahgsdf.as",
+    "phone": "123123123123",
+    "message": "opiwerrtokjhdfgkjsvkjjrfggipqurhgipu",
+    "receivedAt": "2026-11-01T15:36:12.738Z"
+  }
+]

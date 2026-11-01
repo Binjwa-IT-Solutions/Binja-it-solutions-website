@@ -137,6 +137,26 @@ body {
   background-size: 200% 200%;
 }
 
+@keyframes ticker-ltr {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+.animate-ticker-ltr {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: ticker-ltr 40s linear infinite;
+}
+
+.animate-ticker-ltr:hover {
+  animation-play-state: paused;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }

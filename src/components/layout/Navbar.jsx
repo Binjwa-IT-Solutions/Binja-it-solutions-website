@@ -23,7 +23,7 @@ const Navbar = ({ handleShowBanner, hasBanner }) => {
     
     const pathname = usePathname();
 
-    const isSmmPage = pathname === "/products/smm";
+    const isSmmPage = pathname === "/products/smm" || pathname === "/products/binjai" || pathname === "/products/new-page";
     const darkHeroRoutes = ["/"];
 
     const pathSegments = pathname.split("/").filter(Boolean);
@@ -49,13 +49,13 @@ const Navbar = ({ handleShowBanner, hasBanner }) => {
                 subServices: service.subServices
             })),
         },
-        {
-            name: "Industries",
-            href: "/industries",
-            isMega: true,
-            isIndustriesMega: true,
-            subLinks: industriesData.map(industry => ({ name: industry.name, href: `/industries/${industry.slug}` })),
-        },
+        // {
+        //     name: "Industries",
+        //     href: "/industries",
+        //     isMega: true,
+        //     isIndustriesMega: true,
+        //     subLinks: industriesData.map(industry => ({ name: industry.name, href: `/industries/${industry.slug}` })),
+        // },
         { name: "Products", href: "/products" },
         { name: "Blogs", href: "/blogs" },
         { name: "Careers", href: "/jobs" },
